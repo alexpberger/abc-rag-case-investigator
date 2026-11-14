@@ -1,8 +1,8 @@
 # ABC RAG Case Investigator
 
-A small, inspectable RAG demo. A fictional home-insurance file is spread across five Markdown sources. The app retrieves the relevant sections, drafts a structured investigation, and cites the chunks it used.
+A small, inspectable RAG demo. A fictional personal-loan file at Berger Bank is spread across five Markdown sources. The app retrieves the relevant sections, drafts a structured investigation, and cites the chunks it used.
 
-It does not decide coverage. The report can say the evidence is insufficient. It cannot pay or deny the claim.
+It does not decide the loan. The report can say the evidence is insufficient. It cannot approve or decline the application.
 
 Read [AGENTS.md](AGENTS.md) for the engineering manual: pipeline, data model, and the decisions later changes should not casually reverse.
 
@@ -103,4 +103,4 @@ Local Terraform state can contain secrets even though the outputs do not include
 
 ## Secrets
 
-`.env`, `*.tfvars`, `.terraform/`, and `*.tfstate` are gitignored. `.env.example` and `terraform.tfvars.example` contain placeholders and the local database password only. The people, the address, and the insurer in `knowledge/` are fictional.
+`.env`, `*.tfvars`, `.terraform/`, and `*.tfstate` are gitignored. `.env.example` and `terraform.tfvars.example` contain placeholders and the local database password only. The people, the address, and the bank in `knowledge/` are fictional.

@@ -21,7 +21,7 @@ class EvidenceDraft(BaseModel):
 
 
 class InvestigationDraft(BaseModel):
-    """Model output. The enum cannot express a pay or deny decision."""
+    """Model output. The enum cannot express an approve or decline decision."""
 
     summary: str
     determination: Literal["insufficient_evidence", "not_determined"]

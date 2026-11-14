@@ -1,41 +1,41 @@
-- id: policy-sudden-coverage
-  query: What sudden and accidental water damage does the policy cover?
+- id: policy-verified-income
+  query: What verified income and employment tenure does the credit policy require?
   expected_document_ids:
-    - insurance-policy
+    - credit-policy
   expected_section_contains:
-    - Sudden and accidental
+    - Verified income
 
-- id: policy-gradual-exclusion
-  query: What gradual deterioration, seepage, or leakage over time does the policy exclude?
+- id: policy-stated-income
+  query: What does the policy say stated income or irregular overtime cannot establish on its own?
   expected_document_ids:
-    - insurance-policy
+    - credit-policy
   expected_section_contains:
-    - Gradual deterioration
+    - Stated and irregular income
 
-- id: customer-discovery
-  query: What did the customer say happened, and when was the water discovered?
+- id: application-employment
+  query: What does the applicant say about employment, income, and existing obligations?
   expected_document_ids:
-    - customer-claim
+    - loan-application
   expected_section_contains:
-    - discovered
+    - Employment and income
 
-- id: plumber-corrosion
-  query: What did the plumber observe about corrosion, scale, pinholes, and staining?
+- id: payslip-start-date
+  query: What employment start date do the payslips record?
   expected_document_ids:
-    - plumber-report
+    - income-documentation
   expected_section_contains:
-    - Corrosion
+    - Employer start date
 
-- id: guidelines-missing-records
-  query: Which records do the investigation guidelines still require before a coverage decision?
+- id: policy-records-required
+  query: Which records does the credit policy still require before a person decides the loan?
   expected_document_ids:
-    - claims-guidelines
+    - credit-policy
   expected_section_contains:
-    - Records required
+    - Information required
 
 - id: correspondence-incomplete
-  query: Did the customer provide the maintenance history and prior leak history the handler requested?
+  query: Did the applicant provide the employer letter and the year-end income document the case worker requested?
   expected_document_ids:
-    - claims-correspondence
+    - customer-correspondence
   expected_section_contains:
     - Customer reply

@@ -24,17 +24,17 @@ logger = logging.getLogger(__name__)
 
 MAX_HISTORY_TURNS = 6
 
-SYSTEM_RULES = """You are an investigation assistant for one fictional home-insurance file at Berger Insurance Company.
+SYSTEM_RULES = """You are an investigation assistant for one fictional personal-loan file at Berger Bank.
 
-You organise evidence for a human investigator. You are not a claims adjudicator.
+You organise evidence for a human case worker. You are not a lender, and you are not an automated credit decision-maker.
 
 Rules:
-- Use only the case brief and the source chunks in the user message. Do not add outside knowledge about insurance or plumbing.
+- Use only the case brief and the source chunks in the user message. Do not add outside knowledge about lending, credit scoring, or affordability formulas.
 - citation ids must be copied from the chunks you were given, from the lines that start with [chunk_id: ...]. Never invent an id.
-- Do not say the claim should be paid, covered, approved, denied, or rejected. Do not recommend a coverage outcome.
+- Do not say the loan should be approved, declined, granted, or refused. Do not recommend a lending outcome.
 - If the chunks conflict, or if they leave a material gap, leave that question unresolved.
-- A human adjuster makes the coverage decision. You only describe what the file does and does not establish.
-- determination must be "insufficient_evidence" when the chunks do not establish whether the water damage is sudden and accidental or the result of gradual deterioration, seepage, or leakage over time. Use "not_determined" only when the chunks are not about that question.
+- A human lender at Berger Bank makes the lending decision. You only describe what the file does and does not establish.
+- determination must be "insufficient_evidence" when the chunks do not establish that documented income, employment tenure, and obligations are present and consistent with the application. Use "not_determined" only when the chunks are not about that question.
 - Write the summary from the chunks. Do not assume a verdict that those chunks do not support.
 """
 
@@ -188,10 +188,9 @@ def run_investigation() -> InvestigationReport:
                 "Prepare a structured investigation report.\n\n"
                 f"Case brief:\n{brief}\n\n"
                 f"Source chunks:\n{format_chunks(chunks)}\n\n"
-                "Fill supporting_evidence with observations that tend to support a sudden and accidental loss.\n"
-                "Fill contradicting_evidence with observations that tend to suggest gradual deterioration, "
-                "seepage, or leakage over time.\n"
-                "Fill policy_and_guidelines with the policy terms and investigation rules that govern this question.\n"
+                "Fill supporting_evidence with observations that tend to support the application.\n"
+                "Fill contradicting_evidence with concerns, risks, or inconsistencies in the file.\n"
+                "Fill policy_and_guidelines with the credit policy terms and case-worker rules that govern this question.\n"
                 "List missing_information and recommended_steps only when the chunks support them.\n"
                 "Cite chunk ids on every evidence statement."
             ),
@@ -211,13 +210,13 @@ def run_ask(request: AskRequest) -> AskResponse:
         {
             "role": "user",
             "content": (
-                "Answer the investigator's question from the source chunks.\n\n"
+                "Answer the case worker's question from the source chunks.\n\n"
                 f"Case brief:\n{brief}\n\n"
                 f"Earlier turns:\n{format_history(history)}\n\n"
                 f"Question:\n{request.question}\n\n"
                 f"Source chunks:\n{format_chunks(chunks)}\n\n"
                 "Answer only what the chunks support. Cite the chunk ids you used. "
-                "Do not decide coverage."
+                "Do not decide the loan."
             ),
         },
     ]

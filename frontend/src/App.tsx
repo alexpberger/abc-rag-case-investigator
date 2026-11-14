@@ -57,7 +57,7 @@ export function App() {
         <header className="header">
           <div>
             <p className="section-label">Case investigator</p>
-            <p className="brand-line">Berger Insurance Company</p>
+            <p className="brand-line">Berger Bank</p>
           </div>
         </header>
         <div className="intro">

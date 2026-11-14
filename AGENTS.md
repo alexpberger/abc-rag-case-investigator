@@ -4,9 +4,9 @@ Engineering manual for this repository. Keep changes inside the V1 boundary unle
 
 ## Purpose
 
-A small RAG demo: an investigator works a fictional water-damage claim from fragmented Markdown sources. The product rule is one sentence: investigate and cite; do not decide coverage.
+A small RAG demo: a case worker investigates a fictional personal-loan application from fragmented Markdown sources. The product rule is one sentence: investigate and cite; do not decide the loan.
 
-The customer's account says the pipe leak was sudden. The policy covers sudden and accidental water damage and excludes gradual deterioration and leakage over time. The plumber's notes are observations, not a verdict. The file is incomplete. A grounded report should be able to say the evidence is insufficient. The server does not write that sentence for the model, and the response schema has no pay or deny value.
+The applicant states long continuous employment, one monthly income figure, and modest obligations. The credit policy takes income, tenure, and obligations from documents in the file. Stated income and irregular overtime are not enough on their own. The income papers and the risk note record differences and do not recommend an outcome. The file is incomplete. A grounded report should be able to say the evidence is insufficient. The server does not write that sentence for the model, and the response schema has no approve or decline value.
 
 ## V1 in scope
 
@@ -27,7 +27,7 @@ Authentication, user accounts, multi-tenancy, upload, PDF or other parsers, mult
 
 1. The Investigation tab shows the case brief from `knowledge/case-brief.md`.
 2. Run investigation. The API embeds five fixed queries, merges the hits, and asks the chat deployment for a structured report.
-3. The UI separates supporting evidence, evidence in tension, policy and guidelines, missing information, and recommended steps. Citation chips open the chunk.
+3. The UI separates supporting evidence, concerns, risks, and inconsistencies, policy and guidelines, missing information, and recommended steps. Citation chips open the chunk.
 4. Follow-up questions retrieve on the question alone. History stays in the browser and is capped at six turns.
 5. The Knowledge tab reads source files from disk and chunk rows from Postgres.
 6. The Architecture tab is static. It is not an API.
@@ -80,11 +80,11 @@ Ingest (`python -m app.rag.ingest`) hashes each file. Unchanged files are not re
 
 Investigation retrieval uses these queries, k=4 each, merged by chunk id, capped at 12, closest cosine distance kept:
 
-- What sudden and accidental water damage the policy covers
-- What gradual deterioration, seepage, or leakage over time the policy excludes
-- What the customer says happened and when
-- What the plumber observed about the pipe, corrosion, and duration
-- What information the investigation guidelines say is still required before a coverage decision
+- What verified income and employment tenure the credit policy requires
+- What stated income or irregular overtime cannot establish on its own
+- What the applicant says about employment, income, purpose, and obligations
+- What the income documents and the risk note record about pay, tenure, and obligations
+- What information the credit policy says is still required before a person decides the loan
 
 Follow-up retrieval embeds the user question only, k=6. The case brief is generator context, not an extra query.
 

@@ -1,11 +1,11 @@
 const stages = [
   {
     title: "Source documents",
-    body: "Five Markdown files in the repository: the policy excerpt, the investigation guidelines, the customer statement, the plumber's report, and the correspondence. They are fictional, versioned, and readable on GitHub.",
+    body: "Five Markdown files in the repository: the credit policy, the loan application, the income documents, the risk assessment, and the correspondence. They are fictional, versioned, and readable on GitHub.",
   },
   {
     title: "Markdown parsing and chunking",
-    body: "Each file has id and title in front matter. The chunker splits on headings through level 3 and keeps the heading path, such as Exclusions / Gradual deterioration. A section under 6,000 characters is one chunk. Longer sections split on blank lines, with no overlap. Chunk ids look like plumber-report/4.",
+    body: "Each file has id and title in front matter. The chunker splits on headings through level 3 and keeps the heading path, such as Eligibility / Verified income and employment. A section under 6,000 characters is one chunk. Longer sections split on blank lines, with no overlap. Chunk ids look like credit-policy/4.",
   },
   {
     title: "Embeddings",
@@ -21,7 +21,7 @@ const stages = [
   },
   {
     title: "Azure OpenAI generation",
-    body: "The chat deployment writes a structured report: summary, supporting evidence, evidence in tension, policy and guidelines, missing information, and recommended steps. The status can be insufficient evidence or not determined. It cannot be pay or deny.",
+    body: "The chat deployment writes a structured report: summary, supporting evidence, concerns, risks, and inconsistencies, policy and guidelines, missing information, and recommended steps. The status can be insufficient evidence or not determined. It cannot be approve or decline.",
   },
   {
     title: "Citations",
@@ -52,7 +52,7 @@ export function ArchitectureTab() {
       </section>
       <section className="card boundary">
         <h2>V1 boundary</h2>
-        <p>Local Postgres. No document upload. No coverage decision. Azure OpenAI is the only model provider. Authentication, PDF ingestion, hybrid search, and agentic workflows are documented as later work, not built here.</p>
+        <p>Local Postgres. No document upload. No lending decision. Azure OpenAI is the only model provider. Authentication, PDF ingestion, hybrid search, and agentic workflows are documented as later work, not built here.</p>
       </section>
     </div>
   );

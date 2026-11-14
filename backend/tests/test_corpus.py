@@ -7,11 +7,11 @@ from app.rag.chunk import load_documents
 ROOT = Path(__file__).resolve().parents[2]
 CASES = Path(__file__).resolve().parent / "eval" / "cases.yaml"
 EXPECTED_IDS = [
-    "insurance-policy",
-    "claims-guidelines",
-    "customer-claim",
-    "plumber-report",
-    "claims-correspondence",
+    "credit-policy",
+    "loan-application",
+    "income-documentation",
+    "credit-risk-assessment",
+    "customer-correspondence",
 ]
 
 

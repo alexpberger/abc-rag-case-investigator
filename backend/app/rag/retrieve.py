@@ -12,11 +12,11 @@ from app.rag.embeddings import embed_texts
 
 # Fixed fan-out for the primary investigation. These are not chosen by the model.
 INVESTIGATE_QUERIES: tuple[str, ...] = (
-    "What sudden and accidental water damage the policy covers",
-    "What gradual deterioration, seepage, or leakage over time the policy excludes",
-    "What the customer says happened and when",
-    "What the plumber observed about the pipe, corrosion, and duration",
-    "What information the investigation guidelines say is still required before a coverage decision",
+    "What verified income and employment tenure the credit policy requires",
+    "What stated income or irregular overtime cannot establish on its own",
+    "What the applicant says about employment, income, purpose, and obligations",
+    "What the income documents and the risk note record about pay, tenure, and obligations",
+    "What information the credit policy says is still required before a person decides the loan",
 )
 INVESTIGATE_K = 4
 INVESTIGATE_CAP = 12

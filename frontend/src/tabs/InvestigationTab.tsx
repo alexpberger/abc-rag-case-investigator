@@ -153,7 +153,7 @@ export function InvestigationTab() {
     <div className="split">
       <div className="stack">
         <section className="card">
-          <p className="eyebrow">File NL-EXAMPLE-2041</p>
+          <p className="eyebrow">File LN-EXAMPLE-2041</p>
           <h2>Case brief</h2>
           {briefError && <ErrorNote error={briefError} />}
           {brief === null && !briefError && <p className="muted">Loading the case brief…</p>}
@@ -164,7 +164,7 @@ export function InvestigationTab() {
           <div className="row">
             <div>
               <h2>Investigation</h2>
-              <p className="muted">Organise the file. A person decides coverage.</p>
+              <p className="muted">Organise the file. A person decides the loan.</p>
             </div>
             <button type="button" className="primary" onClick={onInvestigate} disabled={running}>
               {running ? "Running investigation…" : "Run investigation"}
@@ -183,12 +183,12 @@ export function InvestigationTab() {
                 {determinationLabel(report.determination)}
               </p>
               <p className="summary">{report.summary}</p>
-              <p className="disclaimer">This is not a coverage decision.</p>
+              <p className="disclaimer">This is not a lending decision.</p>
 
               <h3 className="tone-support">Supporting evidence</h3>
               <EvidenceList items={report.supporting_evidence} citations={report.citations} onCite={setSelected} />
 
-              <h3 className="tone-contradict">Evidence in tension</h3>
+              <h3 className="tone-contradict">Concerns, risks, and inconsistencies</h3>
               <EvidenceList items={report.contradicting_evidence} citations={report.citations} onCite={setSelected} />
 
               <h3 className="tone-policy">Policy and guidelines</h3>
@@ -251,7 +251,7 @@ export function InvestigationTab() {
               onChange={(event) => setQuestion(event.target.value)}
               rows={3}
               maxLength={2000}
-              placeholder="What is still missing before anyone could decide coverage?"
+              placeholder="What is still missing before anyone could decide the loan?"
             />
             <button type="submit" className="primary" disabled={asking || question.trim().length === 0}>
               {asking ? "Asking…" : "Ask"}

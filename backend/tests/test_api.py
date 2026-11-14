@@ -36,7 +36,7 @@ def test_investigate_requires_azure(monkeypatch, client):
 def test_ask_conflict_when_the_index_is_empty(monkeypatch, client):
     monkeypatch.setattr(routes, "missing_azure", lambda: [])
     monkeypatch.setattr(routes, "ingestion_status", lambda: "empty")
-    response = client.post("/api/ask", json={"question": "Who decides coverage?"})
+    response = client.post("/api/ask", json={"question": "Who decides the loan?"})
     assert response.status_code == 409
     detail = response.json()["detail"]
     assert detail["error"] == "knowledge_base_not_ingested"
@@ -46,29 +46,29 @@ def test_ask_conflict_when_the_index_is_empty(monkeypatch, client):
 def test_ask_when_postgres_is_down(monkeypatch, client):
     monkeypatch.setattr(routes, "missing_azure", lambda: [])
     monkeypatch.setattr(routes, "ingestion_status", lambda: "unavailable")
-    response = client.post("/api/ask", json={"question": "Who decides coverage?"})
+    response = client.post("/api/ask", json={"question": "Who decides the loan?"})
     assert response.status_code == 503
     assert response.json()["detail"]["error"] == "database_unavailable"
 
 
 def test_investigate_returns_the_grounded_report(monkeypatch, client):
     report = InvestigationReport(
-        summary="The file does not establish the cause.",
+        summary="The file does not establish that the documents match the application.",
         determination="insufficient_evidence",
         supporting_evidence=[
-            EvidenceItem(statement="The customer reported a sudden leak.", citation_ids=["customer-claim/0"])
+            EvidenceItem(statement="The applicant stated continuous employment.", citation_ids=["loan-application/2"])
         ],
         contradicting_evidence=[],
         policy_and_guidelines=[],
-        missing_information=["Pipe age"],
-        recommended_steps=["Request maintenance records"],
+        missing_information=["Employer letter"],
+        recommended_steps=["Request the employer letter"],
         citations=[
             Citation(
-                chunk_id="customer-claim/0",
-                document_id="customer-claim",
-                document_title="Customer Claim Statement",
-                section_path="What the customer reported",
-                content="A sudden leak.",
+                chunk_id="loan-application/2",
+                document_id="loan-application",
+                document_title="Loan Application",
+                section_path="Employment and income",
+                content="The applicant stated continuous employment.",
             )
         ],
     )
@@ -80,22 +80,22 @@ def test_investigate_returns_the_grounded_report(monkeypatch, client):
     assert body["determination"] == "insufficient_evidence"
     assert body["summary"] == report.summary
     assert "covered" not in body["determination"]
-    assert body["citations"][0]["chunk_id"] == "customer-claim/0"
+    assert body["citations"][0]["chunk_id"] == "loan-application/2"
 
 
 def test_case_and_documents_are_served_from_disk(client):
     case = client.get("/api/case")
     assert case.status_code == 200
-    assert "Berger Insurance Company" in case.json()["markdown"]
+    assert "Berger Bank" in case.json()["markdown"]
 
     listing = client.get("/api/documents")
     assert listing.status_code == 200
     assert [document["id"] for document in listing.json()["documents"]] == [
-        "insurance-policy",
-        "claims-guidelines",
-        "customer-claim",
-        "plumber-report",
-        "claims-correspondence",
+        "credit-policy",
+        "loan-application",
+        "income-documentation",
+        "credit-risk-assessment",
+        "customer-correspondence",
     ]
 
     missing = client.get("/api/documents/does-not-exist")
@@ -112,7 +112,7 @@ def test_ask_response_shape(monkeypatch, client):
     response = client.post(
         "/api/ask",
         json={
-            "question": "Who makes the coverage decision?",
+            "question": "Who makes the lending decision?",
             "history": [{"role": "user", "content": "Earlier question"}, {"role": "assistant", "content": "Earlier answer"}],
         },
     )
