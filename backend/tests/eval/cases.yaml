@@ -1,0 +1,41 @@
+- id: policy-sudden-coverage
+  query: What sudden and accidental water damage does the policy cover?
+  expected_document_ids:
+    - insurance-policy
+  expected_section_contains:
+    - Sudden and accidental
+
+- id: policy-gradual-exclusion
+  query: What gradual deterioration, seepage, or leakage over time does the policy exclude?
+  expected_document_ids:
+    - insurance-policy
+  expected_section_contains:
+    - Gradual deterioration
+
+- id: customer-discovery
+  query: What did the customer say happened, and when was the water discovered?
+  expected_document_ids:
+    - customer-claim
+  expected_section_contains:
+    - discovered
+
+- id: plumber-corrosion
+  query: What did the plumber observe about corrosion, scale, pinholes, and staining?
+  expected_document_ids:
+    - plumber-report
+  expected_section_contains:
+    - Corrosion
+
+- id: guidelines-missing-records
+  query: Which records do the investigation guidelines still require before a coverage decision?
+  expected_document_ids:
+    - claims-guidelines
+  expected_section_contains:
+    - Records required
+
+- id: correspondence-incomplete
+  query: Did the customer provide the maintenance history and prior leak history the handler requested?
+  expected_document_ids:
+    - claims-correspondence
+  expected_section_contains:
+    - Customer reply

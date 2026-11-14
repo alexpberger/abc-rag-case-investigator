@@ -1,0 +1,20 @@
+{
+  "name": "abc-rag-case-investigator",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "dev",
+  "composeProfiles": ["devcontainer"],
+  "runServices": ["dev", "postgres"],
+  "workspaceFolder": "/workspace",
+  "forwardPorts": [5432, 8000, 5173],
+  "overrideCommand": true,
+  "remoteUser": "vscode",
+  "remoteEnv": {
+    "DATABASE_URL": "postgresql://postgres:postgres@postgres:5432/cases"
+  },
+  "postCreateCommand": "uv sync --directory backend --all-extras && npm ci --prefix frontend",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python"]
+    }
+  }
+}
