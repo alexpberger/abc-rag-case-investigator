@@ -3,7 +3,7 @@ id: plumber-report
 title: Plumbing Inspection Report
 ---
 
-This report was prepared by R. Okonkwo of Example Harbour Plumbing for Jordan Hale at 18 Paperbirch Court, Example Harbour. The visit was on 6 March 2026. The report describes the pipe that was inspected and what was visible on that visit. It is a technical note for the customer and for Northline Example Mutual. It does not interpret the homeowners policy and it does not state a cause in the language of coverage.
+This report was prepared by R. Okonkwo of Example Harbour Plumbing for Jordan Hale at 18 Paperbirch Court, Example Harbour. The visit was on 6 March 2026. The report describes the pipe that was inspected and what was visible on that visit. It is a technical note for the customer and for Berger Insurance Company. It does not interpret the homeowners policy and it does not state a cause in the language of coverage.
 
 # Inspection visit
 

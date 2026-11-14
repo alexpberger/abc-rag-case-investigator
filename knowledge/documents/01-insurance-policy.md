@@ -3,7 +3,7 @@ id: insurance-policy
 title: Homeowners Policy Water Damage Provisions
 ---
 
-This excerpt is the water-damage portion of the Homeowners Policy issued by Northline Example Mutual. It is a fictional teaching document. It states what the policy covers, what it excludes, and who is allowed to make a coverage decision. It does not describe the Hale loss, and it does not apply itself to any particular set of facts.
+This excerpt is the water-damage portion of the Homeowners Policy issued by Berger Insurance Company. It is a fictional teaching document. It states what the policy covers, what it excludes, and who is allowed to make a coverage decision. It does not describe the Hale loss, and it does not apply itself to any particular set of facts.
 
 # Coverage
 
@@ -31,12 +31,12 @@ A single observation of standing water does not tell the reader whether the esca
 
 # Duties after a loss
 
-After a loss, the insured must give prompt notice, protect the property from further damage, and show the damaged property. The insured must also provide records and documents that Northline Example Mutual reasonably requests, including maintenance history and any earlier reports of leaks. Failure to provide a requested record does not, by itself, decide coverage. It does leave the file incomplete.
+After a loss, the insured must give prompt notice, protect the property from further damage, and show the damaged property. The insured must also provide records and documents that Berger Insurance Company reasonably requests, including maintenance history and any earlier reports of leaks. Failure to provide a requested record does not, by itself, decide coverage. It does leave the file incomplete.
 
 The insured cooperates and does not decide whether an exclusion applies. Photographs, invoices, and maintenance notes are part of the file when they exist. If they were requested and not supplied, the file says so.
 
 # Who decides coverage
 
-A coverage decision is made by an authorised adjuster at Northline Example Mutual. No vendor, inspector, or software assistant decides whether the policy pays. An investigation report can arrange the facts, point to these sections, and list what is still missing. It is not a coverage determination.
+A coverage decision is made by an authorised adjuster at Berger Insurance Company. No vendor, inspector, or software assistant decides whether the policy pays. An investigation report can arrange the facts, point to these sections, and list what is still missing. It is not a coverage determination.
 
 The adjuster may pay, deny, or hold the claim only after considering the whole file. When the facts do not show whether the escape was a sudden and accidental discharge or the result of gradual deterioration, seepage, or leakage over time, the adjuster does not yet have a basis for a final decision. The policy does not require a guess. It requires a decision by a person, made on a sufficient file.

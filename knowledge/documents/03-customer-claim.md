@@ -3,7 +3,7 @@ id: customer-claim
 title: Customer Claim Statement
 ---
 
-This statement was taken from Jordan Hale, the named insured on fictional policy NL-EXAMPLE-2041, regarding the dwelling at 18 Paperbirch Court, Example Harbour. It records what the customer said. It is not a finding about the pipe, and it is not a request that the claim be paid. Northline Example Mutual took the statement on 4 March 2026.
+This statement was taken from Jordan Hale, the named insured on fictional policy NL-EXAMPLE-2041, regarding the dwelling at 18 Paperbirch Court, Example Harbour. It records what the customer said. It is not a finding about the pipe, and it is not a request that the claim be paid. Berger Insurance Company took the statement on 4 March 2026.
 
 # What the customer reported
 
@@ -31,6 +31,6 @@ The denial of earlier problems is the customer's account. The statement contains
 
 # Materials not in the file
 
-The customer referred to two photographs taken on a phone on 3 March 2026, one of the wet cabinet floor and one of the pipe. The photographs were not attached to the statement and had not been received by Northline Example Mutual when this note was written. No moisture reading taken by the customer is in the file, because the customer did not take one.
+The customer referred to two photographs taken on a phone on 3 March 2026, one of the wet cabinet floor and one of the pipe. The photographs were not attached to the statement and had not been received by Berger Insurance Company when this note was written. No moisture reading taken by the customer is in the file, because the customer did not take one.
 
 The statement does not include a maintenance record, a pipe invoice, or a written age for the supply line. It includes the customer's description of a sudden leak, the discovery window on 3 March 2026, the rooms and materials said to be wet, and the denial of earlier trouble. Those are statements. The photographs and the maintenance papers the customer mentioned are not in this document.

@@ -3,7 +3,7 @@ id: claims-guidelines
 title: Claims Investigation Guidelines
 ---
 
-These guidelines tell investigators at Northline Example Mutual how to build a water-damage file. They are internal instructions. They do not change the policy, and they do not authorise the investigator to pay or deny a claim. The Hale file is the kind of file these instructions describe: a report of water in the home, a plumbing observation, and an unfinished set of records.
+These guidelines tell investigators at Berger Insurance Company how to build a water-damage file. They are internal instructions. They do not change the policy, and they do not authorise the investigator to pay or deny a claim. The Hale file is the kind of file these instructions describe: a report of water in the home, a plumbing observation, and an unfinished set of records.
 
 # Purpose
 

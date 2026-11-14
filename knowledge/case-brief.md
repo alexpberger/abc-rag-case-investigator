@@ -5,7 +5,7 @@ title: Hale water-damage file
 
 # Hale water-damage file
 
-Northline Example Mutual, claim NL-EXAMPLE-2041. The insured is Jordan Hale of 18 Paperbirch Court, Example Harbour. Everything in this demo is fictional.
+Berger Insurance Company, claim NL-EXAMPLE-2041. The insured is Jordan Hale of 18 Paperbirch Court, Example Harbour. Everything in this demo is fictional.
 
 Jordan Hale reported water under the kitchen sink and described it as a sudden pipe leak. The homeowners policy covers sudden and accidental discharge or overflow of water. It excludes loss caused by gradual deterioration, and loss caused by seepage or leakage over time. A person at the company makes any coverage decision. This assistant does not.
 

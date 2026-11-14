@@ -3,7 +3,7 @@ id: claims-correspondence
 title: Claims Correspondence
 ---
 
-This note collects the claim correspondence on fictional file NL-EXAMPLE-2041, Jordan Hale, 18 Paperbirch Court, Example Harbour. The handler is S. Patel at Northline Example Mutual. The messages below are the request for records and the reply that came back. No coverage position is stated in either message. The file remains open.
+This note collects the claim correspondence on fictional file NL-EXAMPLE-2041, Jordan Hale, 18 Paperbirch Court, Example Harbour. The handler is S. Patel at Berger Insurance Company. The messages below are the request for records and the reply that came back. No coverage position is stated in either message. The file remains open.
 
 # Request for records
 
@@ -21,4 +21,4 @@ The reply does not contain a prior-leak history beyond the repeated denial. It n
 
 No further message from the handler is in the file after 11 March 2026. No adjuster has written a payment, a denial, or a reservation of rights. The correspondence does not close the claim. S. Patel's request remains open on the items the reply did not supply, in particular the photographs and any record that would show maintenance or pipe age rather than their absence.
 
-The file, as correspondence, shows a request, an incomplete reply, and no decision. Anyone reading only these messages can see that Northline Example Mutual asked for the maintenance history and the prior leak history in the form of documents and a specific note, and that the customer answered from memory and without the papers or the photographs. The correspondence stops there. It does not say what the adjuster will do when the reply date passes, and it does not treat the incomplete reply as the end of the investigation.
+The file, as correspondence, shows a request, an incomplete reply, and no decision. Anyone reading only these messages can see that Berger Insurance Company asked for the maintenance history and the prior leak history in the form of documents and a specific note, and that the customer answered from memory and without the papers or the photographs. The correspondence stops there. It does not say what the adjuster will do when the reply date passes, and it does not treat the incomplete reply as the end of the investigation.
