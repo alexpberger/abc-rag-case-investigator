@@ -21,6 +21,7 @@ function tabFromHash(): TabId {
 
 export function App() {
   const [tab, setTab] = useState<TabId>(tabFromHash);
+  const current = tabs.find(([id]) => id === tab) ?? tabs[0];
 
   useEffect(() => {
     const onHash = () => setTab(tabFromHash());
@@ -28,37 +29,45 @@ export function App() {
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
 
+  useEffect(() => {
+    document.title = `${current[1]} — Case investigator`;
+  }, [current]);
+
   function selectTab(next: TabId) {
     window.location.hash = next;
     setTab(next);
   }
 
   return (
-    <>
-      <header className="topbar">
-        <div className="brand">
-          <p className="brand-kicker">Northline Example Mutual</p>
-          <h1>Case investigator</h1>
+    <div className="shell">
+      <nav className="nav" aria-label="Primary">
+        {tabs.map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            className={tab === id ? "active" : undefined}
+            aria-current={tab === id ? "page" : undefined}
+            onClick={() => selectTab(id)}
+          >
+            {label}
+          </button>
+        ))}
+      </nav>
+      <div className="main">
+        <header className="header">
+          <div>
+            <p className="section-label">Case investigator</p>
+            <p className="brand-line">Northline Example Mutual</p>
+          </div>
+        </header>
+        <div className="intro">
+          <h1>{current[1]}</h1>
+          <hr className="accent-rule" />
         </div>
-        <nav aria-label="Primary">
-          {tabs.map(([id, label]) => (
-            <button
-              key={id}
-              type="button"
-              className={tab === id ? "tab selected" : "tab"}
-              aria-selected={tab === id}
-              onClick={() => selectTab(id)}
-            >
-              {label}
-            </button>
-          ))}
-        </nav>
-      </header>
-      <main>
         {tab === "investigate" && <InvestigationTab />}
         {tab === "knowledge" && <KnowledgeTab />}
         {tab === "architecture" && <ArchitectureTab />}
-      </main>
-    </>
+      </div>
+    </div>
   );
 }
