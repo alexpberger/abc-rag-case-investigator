@@ -171,7 +171,7 @@ export function InvestigationTab() {
     <div className="split">
       <div className="stack">
         <section className="card">
-          <p className="eyebrow">File LN-EXAMPLE-2041</p>
+          <p className="eyebrow">CASE LN-EXAMPLE-2041</p>
           <h2>Case overview</h2>
           <p>
             Imagine you are a case worker reviewing a newly submitted loan application. The following information
