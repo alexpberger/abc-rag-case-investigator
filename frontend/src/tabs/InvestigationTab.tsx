@@ -174,7 +174,7 @@ export function InvestigationTab() {
           <p className="eyebrow">File LN-EXAMPLE-2041</p>
           <h2>Case overview</h2>
           <p>
-            You are a case worker reviewing a newly submitted loan application. The following information
+            Imagine you are a case worker reviewing a newly submitted loan application. The following information
             provides an initial overview of the customer and their application, as presented before
             examining the supporting documentation. The information has not yet been independently verified.
           </p>
