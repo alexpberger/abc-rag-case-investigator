@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { ApiError, ask, getCase, investigate } from "../api";
 import { Markdown } from "../markdown";
 import type { AskResponse, Citation, EvidenceItem, HistoryTurn, InvestigationReport } from "../types";
@@ -173,6 +173,7 @@ export function InvestigationTab() {
   const [question, setQuestion] = useState("");
   const [asking, setAsking] = useState(false);
   const [askError, setAskError] = useState<Error | null>(null);
+  const investigationId = useRef(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -193,26 +194,41 @@ export function InvestigationTab() {
   }, []);
 
   async function onInvestigate() {
+    const id = investigationId.current + 1;
+    investigationId.current = id;
     setRunning(true);
     setReportError(null);
     setSelected(null);
+    setTranscript([]);
+    setQuestion("");
+    setAskError(null);
+    setAsking(false);
     try {
       const next = await investigate();
+      if (investigationId.current !== id) {
+        return;
+      }
       setReport(next);
     } catch (error) {
+      if (investigationId.current !== id) {
+        return;
+      }
       setReport(null);
       setReportError(error as Error);
     } finally {
-      setRunning(false);
+      if (investigationId.current === id) {
+        setRunning(false);
+      }
     }
   }
 
   async function onAsk(event: FormEvent) {
     event.preventDefault();
     const trimmed = question.trim();
-    if (!trimmed || asking) {
+    if (!trimmed || asking || running || report === null) {
       return;
     }
+    const id = investigationId.current;
     setAsking(true);
     setAskError(null);
     const history: HistoryTurn[] = transcript.slice(-6).map((turn) => ({
@@ -221,6 +237,9 @@ export function InvestigationTab() {
     }));
     try {
       const response: AskResponse = await ask(trimmed, history);
+      if (investigationId.current !== id) {
+        return;
+      }
       setTranscript((current) => [
         ...current,
         { role: "user", content: trimmed },
@@ -228,9 +247,14 @@ export function InvestigationTab() {
       ]);
       setQuestion("");
     } catch (error) {
+      if (investigationId.current !== id) {
+        return;
+      }
       setAskError(error as Error);
     } finally {
-      setAsking(false);
+      if (investigationId.current === id) {
+        setAsking(false);
+      }
     }
   }
 
@@ -381,45 +405,49 @@ export function InvestigationTab() {
           )}
         </section>
 
-        <section className="card">
-          <h2>Follow-up</h2>
-          <div className="transcript">
-            {transcript.length === 0 && <p className="muted">Ask about the file. Answers stay tied to retrieved chunks.</p>}
-            {transcript.map((turn, index) => (
-              <article key={`${turn.role}-${index}`} className={turn.role === "user" ? "turn user" : "turn assistant"}>
-                <p className="eyebrow">{turn.role === "user" ? "You" : "Assistant"}</p>
-                <p>{turn.content}</p>
-                {turn.citations && turn.citations.length > 0 && (
-                  <div className="chips">
-                    {turn.citations.map((citation) => (
-                      <button key={citation.chunk_id} type="button" className="chip" onClick={() => setSelected(citation)}>
-                        {citation.section_path}
-                      </button>
-                    ))}
-                  </div>
-                )}
-                {turn.role === "assistant" && turn.citations && turn.citations.length === 0 && (
-                  <span className="uncited">No source citation</span>
-                )}
-              </article>
-            ))}
-          </div>
-          {askError && <ErrorNote error={askError} />}
-          <form onSubmit={onAsk} className="ask">
-            <label htmlFor="follow-up">Question</label>
-            <textarea
-              id="follow-up"
-              value={question}
-              onChange={(event) => setQuestion(event.target.value)}
-              rows={3}
-              maxLength={2000}
-              placeholder="What is still missing before anyone could decide the loan?"
-            />
-            <button type="submit" className="primary" disabled={asking || question.trim().length === 0}>
-              {asking ? "Asking…" : "Ask"}
-            </button>
-          </form>
-        </section>
+        {report && !running && (
+          <section className="card">
+            <h2>Follow-up</h2>
+            <div className="transcript">
+              {transcript.length === 0 && (
+                <p className="muted">Ask a further question about these findings. Answers stay tied to retrieved chunks.</p>
+              )}
+              {transcript.map((turn, index) => (
+                <article key={`${turn.role}-${index}`} className={turn.role === "user" ? "turn user" : "turn assistant"}>
+                  <p className="eyebrow">{turn.role === "user" ? "You" : "Assistant"}</p>
+                  <p>{turn.content}</p>
+                  {turn.citations && turn.citations.length > 0 && (
+                    <div className="chips">
+                      {turn.citations.map((citation) => (
+                        <button key={citation.chunk_id} type="button" className="chip" onClick={() => setSelected(citation)}>
+                          {citation.section_path}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  {turn.role === "assistant" && turn.citations && turn.citations.length === 0 && (
+                    <span className="uncited">No source citation</span>
+                  )}
+                </article>
+              ))}
+            </div>
+            {askError && <ErrorNote error={askError} />}
+            <form onSubmit={onAsk} className="ask">
+              <label htmlFor="follow-up">Question</label>
+              <textarea
+                id="follow-up"
+                value={question}
+                onChange={(event) => setQuestion(event.target.value)}
+                rows={3}
+                maxLength={2000}
+                placeholder="What is still missing before anyone could decide the loan?"
+              />
+              <button type="submit" className="primary" disabled={asking || question.trim().length === 0}>
+                {asking ? "Asking…" : "Ask"}
+              </button>
+            </form>
+          </section>
+        )}
       </div>
 
       <aside className="card citation-panel">
