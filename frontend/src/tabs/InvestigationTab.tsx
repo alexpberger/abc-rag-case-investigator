@@ -131,11 +131,14 @@ function EvidenceList({
                   return (
                     <span key={id}>
                       {citation ? (
-                        <button
-                          type="button"
+                        <a
                           className="cite"
+                          href={`#${citation.chunk_id}`}
                           aria-current={selectedId === citation.chunk_id ? "true" : undefined}
-                          onClick={() => onCite(citation)}
+                          onClick={(event) => {
+                            event.preventDefault();
+                            onCite(citation);
+                          }}
                         >
                           {citationIndex > 0 && (
                             <span className="cite-sep" aria-hidden="true">
@@ -143,7 +146,7 @@ function EvidenceList({
                             </span>
                           )}
                           <span className="cite-label">{citationLabel(citation)}</span>
-                        </button>
+                        </a>
                       ) : (
                         <span className="uncited">{id}</span>
                       )}
