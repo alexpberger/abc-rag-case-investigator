@@ -32,6 +32,48 @@ function determinationLabel(value: InvestigationReport["determination"]): string
   return "Not determined";
 }
 
+function sentences(text: string): string[] {
+  const parts = text.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g) ?? [];
+  return parts.map((part) => part.trim()).filter((part) => part.length > 0);
+}
+
+function openingSentence(text: string): string {
+  return sentences(text)[0] ?? text.trim();
+}
+
+function executiveSummary(text: string): string {
+  const selected = sentences(text).slice(0, 3);
+  return selected.length > 0 ? selected.join(" ") : text.trim();
+}
+
+function keyFindings(report: InvestigationReport, shownSummary: string): string[] {
+  const selected: string[] = [];
+  const add = (candidate: string, limit: number) => {
+    if (selected.length >= limit) {
+      return;
+    }
+    if (candidate.length === 0 || shownSummary.includes(candidate) || selected.includes(candidate)) {
+      return;
+    }
+    selected.push(candidate);
+  };
+
+  for (const item of report.contradicting_evidence) {
+    add(openingSentence(item.statement), 4);
+  }
+  if (selected.length < 3) {
+    for (const item of report.missing_information) {
+      add(openingSentence(item), 4);
+    }
+  }
+  if (selected.length < 3) {
+    for (const item of report.supporting_evidence) {
+      add(openingSentence(item.statement), 4);
+    }
+  }
+  return selected;
+}
+
 function ErrorNote({ error }: { error: ApiError | Error }) {
   const detail = error instanceof ApiError ? error.detail : null;
   return (
@@ -166,6 +208,8 @@ export function InvestigationTab() {
   }
 
   const facts = brief ? caseFacts(brief) : [];
+  const shownSummary = report ? executiveSummary(report.summary) : "";
+  const findings = report ? keyFindings(report, shownSummary) : [];
 
   return (
     <div className="split">
@@ -235,8 +279,19 @@ export function InvestigationTab() {
 
               <section className="report-summary" aria-labelledby="executive-summary">
                 <h3 id="executive-summary">Executive summary</h3>
-                <p className="summary">{report.summary}</p>
+                <p className="summary">{shownSummary}</p>
               </section>
+
+              {findings.length > 0 && (
+                <section className="report-block report-key" aria-labelledby="key-findings">
+                  <h3 id="key-findings">Key findings</h3>
+                  <ul className="key-findings">
+                    {findings.map((finding) => (
+                      <li key={finding}>{finding}</li>
+                    ))}
+                  </ul>
+                </section>
+              )}
 
               <section className="report-block">
                 <h3 className="tone-support">Supporting evidence</h3>
@@ -274,9 +329,11 @@ export function InvestigationTab() {
                 )}
               </section>
 
-              <section className="report-block">
-                <h3 className="tone-policy">Policy and guidelines</h3>
-                <EvidenceList items={report.policy_and_guidelines} citations={report.citations} onCite={setSelected} />
+              <section className="report-block report-reference">
+                <details>
+                  <summary className="tone-policy">Policy and guidelines</summary>
+                  <EvidenceList items={report.policy_and_guidelines} citations={report.citations} onCite={setSelected} />
+                </details>
               </section>
             </div>
           )}
