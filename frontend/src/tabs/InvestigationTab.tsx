@@ -93,13 +93,24 @@ function ErrorNote({ error }: { error: ApiError | Error }) {
   );
 }
 
+function citationLabel(citation: Citation): string {
+  const title = citation.document_title;
+  const section = citation.section_path;
+  if (section === title || section.startsWith(`${title} / `)) {
+    return section;
+  }
+  return `${title} — ${section}`;
+}
+
 function EvidenceList({
   items,
   citations,
+  selectedId,
   onCite,
 }: {
   items: EvidenceItem[];
   citations: Citation[];
+  selectedId: string | null;
   onCite: (citation: Citation) => void;
 }) {
   if (items.length === 0) {
@@ -110,25 +121,38 @@ function EvidenceList({
     <ul className="evidence">
       {items.map((item, index) => (
         <li key={`${item.statement}-${index}`}>
-          <p>{item.statement}</p>
-          <div className="chips">
+          <p>
+            {item.statement}
             {item.citation_ids.length === 0 && <span className="uncited">No source citation</span>}
-            {item.citation_ids.map((id) => {
-              const citation = byId.get(id);
-              if (!citation) {
-                return (
-                  <span key={id} className="uncited">
-                    {id}
-                  </span>
-                );
-              }
-              return (
-                <button key={id} type="button" className="chip" onClick={() => onCite(citation)}>
-                  {citation.section_path}
-                </button>
-              );
-            })}
-          </div>
+            {item.citation_ids.length > 0 && (
+              <span className="cites">
+                {item.citation_ids.map((id, citationIndex) => {
+                  const citation = byId.get(id);
+                  return (
+                    <span key={id}>
+                      {citation ? (
+                        <button
+                          type="button"
+                          className="cite"
+                          aria-current={selectedId === citation.chunk_id ? "true" : undefined}
+                          onClick={() => onCite(citation)}
+                        >
+                          {citationIndex > 0 && (
+                            <span className="cite-sep" aria-hidden="true">
+                              ·{" "}
+                            </span>
+                          )}
+                          <span className="cite-label">{citationLabel(citation)}</span>
+                        </button>
+                      ) : (
+                        <span className="uncited">{id}</span>
+                      )}
+                    </span>
+                  );
+                })}
+              </span>
+            )}
+          </p>
         </li>
       ))}
     </ul>
@@ -295,12 +319,22 @@ export function InvestigationTab() {
 
               <section className="report-block">
                 <h3 className="tone-support">Supporting evidence</h3>
-                <EvidenceList items={report.supporting_evidence} citations={report.citations} onCite={setSelected} />
+                <EvidenceList
+                  items={report.supporting_evidence}
+                  citations={report.citations}
+                  selectedId={selected?.chunk_id ?? null}
+                  onCite={setSelected}
+                />
               </section>
 
               <section className="report-block">
                 <h3 className="tone-contradict">Concerns, risks and inconsistencies</h3>
-                <EvidenceList items={report.contradicting_evidence} citations={report.citations} onCite={setSelected} />
+                <EvidenceList
+                  items={report.contradicting_evidence}
+                  citations={report.citations}
+                  selectedId={selected?.chunk_id ?? null}
+                  onCite={setSelected}
+                />
               </section>
 
               <section className="report-block">
@@ -332,7 +366,12 @@ export function InvestigationTab() {
               <section className="report-block report-reference">
                 <details>
                   <summary className="tone-policy">Policy and guidelines</summary>
-                  <EvidenceList items={report.policy_and_guidelines} citations={report.citations} onCite={setSelected} />
+                  <EvidenceList
+                    items={report.policy_and_guidelines}
+                    citations={report.citations}
+                    selectedId={selected?.chunk_id ?? null}
+                    onCite={setSelected}
+                  />
                 </details>
               </section>
             </div>
