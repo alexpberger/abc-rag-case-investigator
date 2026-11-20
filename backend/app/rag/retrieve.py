@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from pgvector import Vector
 from pgvector.psycopg import register_vector
 from psycopg.rows import dict_row
 
@@ -65,7 +66,7 @@ def _search(conn, vector: list[float], k: int) -> list[RetrievedChunk]:
             ORDER BY c.embedding <=> %s
             LIMIT %s
             """,
-            (vector, vector, k),
+            (Vector(vector), Vector(vector), k),
         )
         rows = cur.fetchall()
     return [
