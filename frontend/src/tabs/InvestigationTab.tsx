@@ -173,6 +173,11 @@ export function InvestigationTab() {
         <section className="card">
           <p className="eyebrow">File LN-EXAMPLE-2041</p>
           <h2>Case overview</h2>
+          <p>
+            You are a case worker reviewing a newly submitted loan application. The following information
+            provides an initial overview of the customer and their application, as presented before
+            examining the supporting documentation. The information has not yet been independently verified.
+          </p>
           {briefError && <ErrorNote error={briefError} />}
           {brief === null && !briefError && <p className="muted">Loading the case overview…</p>}
           {facts.length > 0 && (
@@ -191,7 +196,10 @@ export function InvestigationTab() {
         <section className="card">
           <p className="eyebrow">Objective</p>
           <h2>Investigation objective</h2>
-          <p>Review this application against the documents in the file and identify:</p>
+          <p>
+            As the case handler, you are asking the AI assistant to review the loan application against the
+            available supporting documents and identify:
+          </p>
           <ul className="plain">
             <li>Supporting evidence</li>
             <li>Concerns and inconsistencies</li>
