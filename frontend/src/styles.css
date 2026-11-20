@@ -238,21 +238,49 @@ label {
   margin-top: 0.45rem;
 }
 
-.determination {
+.report {
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin: 1.25rem 0 0.75rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--rule);
+  flex-direction: column;
+  gap: 1.75rem;
+  margin-top: 1.75rem;
+}
+
+.report-status {
+  padding: 1.15rem 1.25rem 1.2rem;
+  background: var(--accent-soft);
+}
+
+.report-status-value {
+  margin-top: 0.35rem;
   font-family: "Newsreader", Georgia, "Times New Roman", serif;
-  font-size: 1.35rem;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.15;
   letter-spacing: -0.02em;
 }
 
+.report-summary h3,
+.report-block h3 {
+  margin: 0 0 0.7rem;
+}
+
+.report-summary h3 {
+  font-size: 1.85rem;
+}
+
 .summary {
-  font-size: 1.05rem;
-  line-height: 1.55;
+  max-width: 40rem;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+.report-block {
+  padding-top: 1.35rem;
+  border-top: 1px solid var(--rule);
+}
+
+.report-block h3 {
+  font-size: 1.35rem;
 }
 
 .facts {
@@ -287,10 +315,6 @@ label {
   margin-top: 0.75rem;
 }
 
-.report h3 {
-  margin-top: 1.6rem;
-}
-
 .tone-support { color: var(--support); }
 .tone-contradict { color: var(--contradict); }
 .tone-policy { color: var(--policy); }
@@ -305,7 +329,7 @@ label {
 
 .evidence li,
 .transcript {
-  margin-bottom: 0.9rem;
+  margin-bottom: 1.15rem;
 }
 
 .evidence li p + .chips,
@@ -323,8 +347,9 @@ label {
   padding-left: 1.15rem;
 }
 
-.report ol li + li {
-  margin-top: 0.45rem;
+.report ol li + li,
+.report-block .plain li + li {
+  margin-top: 0.7rem;
 }
 
 .chips {
@@ -623,6 +648,14 @@ code {
 
   .about-lead p:first-child {
     font-size: 1.3rem;
+  }
+
+  .report-status-value {
+    font-size: 1.65rem;
+  }
+
+  .report-summary h3 {
+    font-size: 1.5rem;
   }
 
   .row {

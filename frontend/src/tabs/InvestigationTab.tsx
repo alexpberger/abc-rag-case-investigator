@@ -227,43 +227,57 @@ export function InvestigationTab() {
           {reportError && <ErrorNote error={reportError} />}
           {report && (
             <div className="report">
-              <p className="determination">
-                <span>Investigation status</span>
-                {determinationLabel(report.determination)}
-              </p>
-              <p className="summary">{report.summary}</p>
-              <p className="disclaimer">This is not a lending decision.</p>
+              <section className="report-status" aria-labelledby="investigation-status">
+                <p className="eyebrow" id="investigation-status">Investigation status</p>
+                <p className="report-status-value">{determinationLabel(report.determination)}</p>
+                <p className="disclaimer">This is not a lending decision.</p>
+              </section>
 
-              <h3 className="tone-support">Supporting evidence</h3>
-              <EvidenceList items={report.supporting_evidence} citations={report.citations} onCite={setSelected} />
+              <section className="report-summary" aria-labelledby="executive-summary">
+                <h3 id="executive-summary">Executive summary</h3>
+                <p className="summary">{report.summary}</p>
+              </section>
 
-              <h3 className="tone-contradict">Concerns, risks, and inconsistencies</h3>
-              <EvidenceList items={report.contradicting_evidence} citations={report.citations} onCite={setSelected} />
+              <section className="report-block">
+                <h3 className="tone-support">Supporting evidence</h3>
+                <EvidenceList items={report.supporting_evidence} citations={report.citations} onCite={setSelected} />
+              </section>
 
-              <h3 className="tone-policy">Policy and guidelines</h3>
-              <EvidenceList items={report.policy_and_guidelines} citations={report.citations} onCite={setSelected} />
+              <section className="report-block">
+                <h3 className="tone-contradict">Concerns, risks and inconsistencies</h3>
+                <EvidenceList items={report.contradicting_evidence} citations={report.citations} onCite={setSelected} />
+              </section>
 
-              <h3 className="tone-missing">Missing information</h3>
-              {report.missing_information.length === 0 ? (
-                <p className="muted">None listed.</p>
-              ) : (
-                <ul className="plain">
-                  {report.missing_information.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              )}
+              <section className="report-block">
+                <h3 className="tone-missing">Missing information</h3>
+                {report.missing_information.length === 0 ? (
+                  <p className="muted">None listed.</p>
+                ) : (
+                  <ul className="plain">
+                    {report.missing_information.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                )}
+              </section>
 
-              <h3>Recommended steps</h3>
-              {report.recommended_steps.length === 0 ? (
-                <p className="muted">None listed.</p>
-              ) : (
-                <ol>
-                  {report.recommended_steps.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ol>
-              )}
+              <section className="report-block">
+                <h3>Recommended next steps</h3>
+                {report.recommended_steps.length === 0 ? (
+                  <p className="muted">None listed.</p>
+                ) : (
+                  <ol>
+                    {report.recommended_steps.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ol>
+                )}
+              </section>
+
+              <section className="report-block">
+                <h3 className="tone-policy">Policy and guidelines</h3>
+                <EvidenceList items={report.policy_and_guidelines} citations={report.citations} onCite={setSelected} />
+              </section>
             </div>
           )}
         </section>
