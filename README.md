@@ -57,6 +57,8 @@ uv run python -m app.rag.ingest
 
 ## Day-to-day
 
+Start Docker Desktop. Postgres is a container, and it is the only service this path runs in Docker. The API and the UI run in ordinary terminals on your machine. Open the site in a browser. Leave the devcontainer unused; that option is under Other ways to run.
+
 Postgres keeps running until Docker stops it. Start it when it is not already up:
 
 ```powershell
