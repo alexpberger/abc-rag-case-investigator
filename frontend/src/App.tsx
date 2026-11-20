@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { AboutTab } from "./tabs/AboutTab";
 import { ArchitectureTab } from "./tabs/ArchitectureTab";
 import { InvestigationTab } from "./tabs/InvestigationTab";
 import { KnowledgeTab } from "./tabs/KnowledgeTab";
 
 const tabs = [
+  ["about", "About"],
   ["investigate", "Investigation"],
   ["knowledge", "Knowledge"],
   ["architecture", "Architecture"],
@@ -13,10 +15,8 @@ type TabId = (typeof tabs)[number][0];
 
 function tabFromHash(): TabId {
   const hash = window.location.hash.replace("#", "");
-  if (hash === "knowledge" || hash === "architecture" || hash === "investigate") {
-    return hash;
-  }
-  return "investigate";
+  const match = tabs.find(([id]) => id === hash);
+  return match ? match[0] : "investigate";
 }
 
 export function App() {
@@ -67,6 +67,7 @@ export function App() {
         {tab === "investigate" && <InvestigationTab />}
         {tab === "knowledge" && <KnowledgeTab />}
         {tab === "architecture" && <ArchitectureTab />}
+        {tab === "about" && <AboutTab />}
       </div>
     </div>
   );
