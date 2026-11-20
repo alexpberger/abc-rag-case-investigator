@@ -205,9 +205,14 @@ label {
 
 .knowledge {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+  grid-template-columns: 18rem minmax(0, 1fr);
+  gap: 1rem 1.25rem;
   align-items: start;
+}
+
+.knowledge-lead {
+  grid-column: 1 / -1;
+  margin: 0;
 }
 
 .row {
@@ -546,16 +551,18 @@ button.doc-button.selected small {
   line-height: 1.55;
 }
 
-.source-file {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
+.reader .markdown {
+  margin-top: 1.15rem;
+}
+
+.indexed-chunks {
+  margin-top: 2rem;
+  padding-top: 1.15rem;
   border-top: 1px solid var(--rule);
 }
 
-.source-file summary,
-.pipeline,
-.chunks {
-  margin-top: 0.75rem;
+.indexed-chunks > summary {
+  width: fit-content;
 }
 
 summary {
@@ -567,7 +574,11 @@ summary {
   text-transform: uppercase;
 }
 
-.source-file pre,
+.pipeline,
+.chunks {
+  margin-top: 0.75rem;
+}
+
 .chunks pre {
   white-space: pre-wrap;
   margin: 0.65rem 0 0;
@@ -666,10 +677,6 @@ code {
 
   .split {
     grid-template-columns: minmax(0, 1fr) 20rem;
-  }
-
-  .knowledge {
-    grid-template-columns: 16rem minmax(0, 1fr) 18rem;
   }
 }
 
