@@ -57,27 +57,28 @@ uv run python -m app.rag.ingest
 
 ## Day-to-day
 
-Start Docker Desktop. Postgres is a container, and it is the only service this path runs in Docker. The API and the UI run in ordinary terminals on your machine. Open the site in a browser. Leave the devcontainer unused; that option is under Other ways to run.
+Postgres is the only service this path runs in Docker. The API and the UI run in ordinary terminals on your machine. Leave the devcontainer unused; that option is under Other ways to run.
 
-Postgres keeps running until Docker stops it. Start it when it is not already up:
+1. Start Docker Desktop and wait until the engine is running.
+2. From the repository root, start Postgres. The container keeps running until Docker stops it, so this is only needed when it is not already up.
 
-```powershell
-docker compose up -d postgres
-```
+   ```powershell
+   docker compose up -d postgres
+   ```
 
-In one shell, from `backend`:
+3. In one shell, from `backend`, start the API. Leave this terminal running.
 
-```powershell
-uv run uvicorn app.main:app --reload --port 8000
-```
+   ```powershell
+   uv run uvicorn app.main:app --reload --port 8000
+   ```
 
-In a second shell, from `frontend`:
+4. In a second shell, from `frontend`, start the UI. Leave this terminal running.
 
-```powershell
-npm run dev
-```
+   ```powershell
+   npm run dev
+   ```
 
-Open http://localhost:5173. The Investigation tab runs the case. The Knowledge tab shows the sources and, after ingest, the chunk ids. The Architecture tab explains the pipeline.
+5. Open http://localhost:5173 in a browser. That is the site. Port 8000 is the API and has no page of its own. The Investigation tab runs the case. The Knowledge tab shows the sources and, after ingest, the chunk ids. The Architecture tab explains the pipeline.
 
 Restart the API after changing `.env`. `--reload` picks up code changes, not environment changes.
 
