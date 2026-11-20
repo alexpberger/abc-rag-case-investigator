@@ -255,6 +255,34 @@ label {
   line-height: 1.55;
 }
 
+.facts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin: 1.15rem 0 0;
+}
+
+.facts div {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: 0.35rem 1rem;
+  align-items: baseline;
+}
+
+.facts dt,
+.facts dd {
+  margin: 0;
+}
+
+.facts dt {
+  color: var(--ink-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.55;
+  text-transform: uppercase;
+}
+
 .disclaimer {
   margin-top: 0.75rem;
 }
@@ -600,5 +628,10 @@ code {
   .row {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .facts div {
+    grid-template-columns: 1fr;
+    gap: 0.1rem;
   }
 }

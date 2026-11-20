@@ -3,7 +3,7 @@ id: credit-policy
 title: Personal Loan Credit Policy
 ---
 
-This excerpt is the personal-loan portion of the credit policy of Berger Bank. It is a fictional teaching document. It states what a file must contain before a person may consider a loan, what an application form cannot establish by itself, and who is allowed to decide. It does not describe the Hale application, and it does not apply itself to any particular set of facts. It publishes no score cutoff, no debt-ratio pass mark, and no income floor.
+This excerpt is the personal-loan portion of the credit policy of Berger Bank. It is a fictional teaching document. It states what a file must contain before a person may consider a loan, what an application form cannot establish by itself, and who is allowed to decide. It does not describe the Hansen application, and it does not apply itself to any particular set of facts. It publishes no score cutoff, no debt-ratio pass mark, and no income floor.
 
 # Eligibility
 

@@ -3,7 +3,7 @@ id: credit-risk-assessment
 title: Credit Risk Assessment
 ---
 
-This note was prepared by R. Okonkwo at Berger Bank on 6 October 2026 for fictional file LN-EXAMPLE-2041, Jordan Hale. It compares the application with the income papers and with the bureau information then on the file. It records differences. It does not recommend that the loan be approved, and it does not recommend that the loan be declined.
+This note was prepared by R. Okonkwo at Berger Bank on 6 October 2026 for fictional file LN-EXAMPLE-2041, Jens Hansen. It compares the application with the income papers and with the bureau information then on the file. It records differences. It does not recommend that the loan be approved, and it does not recommend that the loan be declined.
 
 # Employment and income comparison
 
@@ -13,7 +13,7 @@ The difference in start dates is recorded as a difference. The note does not lab
 
 # Obligations
 
-The application states rent of €1,100 and one credit card, paid in full each month, and states that there are no other loans. The bureau extract on the file, dated 1 October 2026, lists one revolving card in Hale's name with a balance outstanding. The extract does not describe that balance as zero. The note records both sentences: the application's "paid in full", and the bureau's outstanding balance.
+The application states rent of €1,100 and one credit card, paid in full each month, and states that there are no other loans. The bureau extract on the file, dated 1 October 2026, lists one revolving card in Hansen's name with a balance outstanding. The extract does not describe that balance as zero. The note records both sentences: the application's "paid in full", and the bureau's outstanding balance.
 
 The note does not print a credit score, a utilisation figure, or a limit. It does not say the balance is a default. It says the two descriptions of the card are not the same description. Rent is stated on the application and is not supported by a tenancy document in the file. The note records that absence and does not invent a document.
 

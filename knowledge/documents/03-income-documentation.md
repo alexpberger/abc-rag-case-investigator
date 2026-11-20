@@ -3,11 +3,11 @@ id: income-documentation
 title: Income Documentation
 ---
 
-This note collects the income papers on fictional file LN-EXAMPLE-2041, Jordan Hale, received by Berger Bank on 3 October 2026. It describes the payslips and the bank extract that are in the file. It is a record of those papers. It does not interpret the credit policy, and it does not say whether the loan should be made.
+This note collects the income papers on fictional file LN-EXAMPLE-2041, Jens Hansen, received by Berger Bank on 3 October 2026. It describes the payslips and the bank extract that are in the file. It is a record of those papers. It does not interpret the credit policy, and it does not say whether the loan should be made.
 
 # Payslips
 
-The file contains two payslips from Northline Facilities, Example Harbour, for August 2026 and September 2026. Both name Jordan Hale. Both show the role as facilities coordinator. The note is limited to the lines printed on those two slips. No earlier slip from Northline Facilities is in the file, and no slip from any other employer is in the file.
+The file contains two payslips from Northline Facilities, Example Harbour, for August 2026 and September 2026. Both name Jens Hansen. Both show the role as facilities coordinator. The note is limited to the lines printed on those two slips. No earlier slip from Northline Facilities is in the file, and no slip from any other employer is in the file.
 
 ## Base pay and overtime
 

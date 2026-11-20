@@ -9,6 +9,22 @@ type TranscriptTurn = {
   citations?: Citation[];
 };
 
+type CaseFact = {
+  label: string;
+  value: string;
+};
+
+function caseFacts(markdown: string): CaseFact[] {
+  const facts: CaseFact[] = [];
+  for (const line of markdown.split("\n")) {
+    const match = /^- \*\*(.+?):\*\*\s+(.+)$/.exec(line.trim());
+    if (match) {
+      facts.push({ label: match[1], value: match[2] });
+    }
+  }
+  return facts;
+}
+
 function determinationLabel(value: InvestigationReport["determination"]): string {
   if (value === "insufficient_evidence") {
     return "Insufficient evidence";
@@ -149,22 +165,47 @@ export function InvestigationTab() {
     }
   }
 
+  const facts = brief ? caseFacts(brief) : [];
+
   return (
     <div className="split">
       <div className="stack">
         <section className="card">
           <p className="eyebrow">File LN-EXAMPLE-2041</p>
-          <h2>Case brief</h2>
+          <h2>Case overview</h2>
           {briefError && <ErrorNote error={briefError} />}
-          {brief === null && !briefError && <p className="muted">Loading the case brief…</p>}
-          {brief && <Markdown text={brief} />}
+          {brief === null && !briefError && <p className="muted">Loading the case overview…</p>}
+          {facts.length > 0 && (
+            <dl className="facts">
+              {facts.map((fact) => (
+                <div key={fact.label}>
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+          {brief && facts.length === 0 && <Markdown text={brief} />}
+        </section>
+
+        <section className="card">
+          <p className="eyebrow">Objective</p>
+          <h2>Investigation objective</h2>
+          <p>Review this application against the documents in the file and identify:</p>
+          <ul className="plain">
+            <li>Supporting evidence</li>
+            <li>Concerns and inconsistencies</li>
+            <li>Missing information</li>
+            <li>Recommended next steps</li>
+          </ul>
+          <p className="disclaimer">The investigation does not make the lending decision.</p>
         </section>
 
         <section className="card">
           <div className="row">
             <div>
-              <h2>Investigation</h2>
-              <p className="muted">Organise the file. A person decides the loan.</p>
+              <h2>Run investigation</h2>
+              <p className="muted">Prepare the report from the documents in the file.</p>
             </div>
             <button type="button" className="primary" onClick={onInvestigate} disabled={running}>
               {running ? "Running investigation…" : "Run investigation"}
