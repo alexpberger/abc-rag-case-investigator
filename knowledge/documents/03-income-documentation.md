@@ -7,11 +7,11 @@ This note collects the income papers on fictional file LN-EXAMPLE-2041, Jens Han
 
 # Payslips
 
-The file contains two payslips from Northline Facilities, Example Harbour, for August 2026 and September 2026. Both name Jens Hansen. Both show the role as facilities coordinator. The note is limited to the lines printed on those two slips. No earlier slip from Northline Facilities is in the file, and no slip from any other employer is in the file.
+The file contains two payslips from Nordlinje A/S, Eksempelhavn, for August 2026 and September 2026. Both name Jens Hansen. Both show the role as driftskoordinator. The note is limited to the lines printed on those two slips. No earlier slip from Nordlinje A/S is in the file, and no slip from any other employer is in the file.
 
 ## Base pay and overtime
 
-Each slip shows gross base pay of €3,150. The August slip also shows overtime of €680. The September slip shows overtime of €0. The two gross totals are therefore different, and neither slip prints the figure €4,200. The note records the base line and the overtime line as printed. It does not combine them into a single monthly income, and it does not say whether August overtime is typical.
+Each slip shows gross base pay of DKK 32,750. The August slip also shows overtime of DKK 4,680. The September slip shows overtime of DKK 0. The two gross totals are therefore different, and neither slip prints the figure DKK 38,500. The note records the base line and the overtime line as printed. It does not combine them into a single monthly income, and it does not say whether August overtime is typical.
 
 ## Employer start date
 
@@ -23,10 +23,10 @@ The file contains a Berger Bank current-account extract for August 2026 and Sept
 
 ## Unexplained credit
 
-On 18 September 2026 the extract shows an incoming credit of €2,400. The reference line reads "transfer". The payer name is not printed on the page in the file. The credit is not described on either payslip. This note records the amount, the date, and the reference. It does not classify the credit as income, as a gift, as a loan, or as a refund.
+On 18 September 2026 the extract shows an incoming credit of DKK 18,500. The reference line reads "transfer". The payer name is not printed on the page in the file. The credit is not described on either payslip. This note records the amount, the date, and the reference. It does not classify the credit as income, as a gift, as a loan, or as a refund.
 
 # What this note does not decide
 
 This note does not conclude that the applicant's income is the August total, the September total, or the figure on the application. It does not conclude that employment began on 3 February 2026, and it does not conclude that employment began in March 2022. It does not estimate whether overtime will continue.
 
-The observations are the two base-pay lines, the overtime that appears on one slip, the start date printed on the headers, the salary credits that match net pay, and the €2,400 credit with the reference "transfer". No employer letter, tax return, or year-end income statement is among these papers.
+The observations are the two base-pay lines, the overtime that appears on one slip, the start date printed on the headers, the salary credits that match net pay, and the DKK 18,500 credit with the reference "transfer". No employer letter, tax return, or year-end income statement is among these papers.

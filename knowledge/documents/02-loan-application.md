@@ -3,23 +3,23 @@ id: loan-application
 title: Loan Application
 ---
 
-This application was completed by Jens Hansen for fictional file LN-EXAMPLE-2041 at Berger Bank. Hansen lives at 18 Paperbirch Court, Example Harbour. The form records what the applicant stated on 2 October 2026. It is not a finding about income or employment, and it is not a request that the loan be approved. The bank took the form. It did not decide it.
+This application was completed by Jens Hansen for fictional file LN-EXAMPLE-2041 at Berger Bank. Hansen lives at Birkevej 18, 2. tv., Eksempelhavn. The form records what the applicant stated on 2 October 2026. It is not a finding about income or employment, and it is not a request that the loan be approved. The bank took the form. It did not decide it.
 
 # Amount and purpose
 
-Jens Hansen asked for a personal loan of €15,000, repayable over 48 months. The stated purpose is repairs to the kitchen at the address above. The form names no contractor, no quote, and no start date for the work. The purpose is the applicant's description. The application does not attach an invoice or a schedule of the repairs.
+Jens Hansen asked for a personal loan of DKK 125,000, repayable over 48 months. The stated purpose is repairs to the kitchen at the address above. The form names no contractor, no quote, and no start date for the work. The purpose is the applicant's description. The application does not attach an invoice or a schedule of the repairs.
 
 The applicant signed the declaration that the answers were complete to the best of the applicant's knowledge. The declaration does not confirm the answers against payslips, bank entries, or bureau records. Those comparisons are outside this form.
 
 # Employment and income
 
-The applicant stated continuous full-time employment as a facilities coordinator since March 2022, and named the current employer as Northline Facilities, Example Harbour. The form gives one gross monthly income figure, €4,200. It does not split that figure into base pay, overtime, or any other part. It does not attach a payslip.
+The applicant stated continuous full-time employment as a driftskoordinator since March 2022, and named the current employer as Nordlinje A/S, Eksempelhavn. The form gives one gross monthly income figure, DKK 38,500. It does not split that figure into base pay, overtime, or any other part. It does not attach a payslip.
 
-The applicant described the employment as uninterrupted. The form does not name an earlier employer, and it does not say whether March 2022 is the start date at Northline Facilities or the start of the occupation. No employer letter is attached. The €4,200 figure is the applicant's statement of monthly income.
+The applicant described the employment as uninterrupted. The form does not name an earlier employer, and it does not say whether March 2022 is the start date at Nordlinje A/S or the start of the occupation. No employer letter is attached. The DKK 38,500 figure is the applicant's statement of monthly income.
 
 # Stated obligations
 
-The applicant stated monthly rent of €1,100 and one credit card, paid in full each month. The form says there are no other loans. It does not name the card issuer, the limit, or a balance. It does not attach a tenancy agreement, a card statement, or a bureau extract.
+The applicant stated monthly rent of DKK 8,500 and one credit card, paid in full each month. The form says there are no other loans. It does not name the card issuer, the limit, or a balance. It does not attach a tenancy agreement, a card statement, or a bureau extract.
 
 The obligations section is what Hansen wrote. A statement that the card is paid in full is the applicant's account of the card. The form contains no document that shows a zero balance, and it contains no document that shows any other balance.
 
