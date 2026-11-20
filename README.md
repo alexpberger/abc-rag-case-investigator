@@ -15,39 +15,71 @@ Read [AGENTS.md](AGENTS.md) for the engineering manual: pipeline, data model, an
 
 The API and the UI run without Azure. Ingest, investigation, follow-up questions, and the retrieval eval do not.
 
-## Run it locally
+## One-off setup
 
-From the repository root:
+From the repository root, create `.env`:
 
 ```powershell
-docker compose up -d postgres
 Copy-Item .env.example .env
 ```
 
 ```bash
-docker compose up -d postgres
 cp .env.example .env
 ```
 
-Edit `.env`. Set `AZURE_OPENAI_ENDPOINT` and `AZURE_OPENAI_API_KEY`. Leave the database URL as the local default unless Postgres is not on `127.0.0.1:5432`. The password in the example is the published Docker password for this demo, not an Azure secret.
+Edit `.env` at the repository root. Set `AZURE_OPENAI_ENDPOINT`, `AZURE_OPENAI_API_KEY`, and the two deployment names. Use an existing Azure OpenAI account, or create one with the Terraform steps below and copy the outputs into `.env`. Leave `DATABASE_URL` as the local default unless Postgres is not on `127.0.0.1:5432`. The password in the example is the published Docker password for this demo, not an Azure secret.
 
 Do not prefix Azure secrets with `VITE_`. Vite reads the same `.env` file and only exposes variables that start with `VITE_`.
 
+Install dependencies. From `backend`:
+
 ```powershell
-cd backend
 uv sync --all-extras
+```
+
+From `frontend`:
+
+```powershell
+npm ci
+```
+
+From the repository root, start Postgres:
+
+```powershell
+docker compose up -d postgres
+```
+
+From `backend`, embed the knowledge base once. Ingest calls Azure and writes vectors to the local database. Run it again only after a file in `knowledge/documents` changes. Add `--force` to re-embed every file.
+
+```powershell
 uv run python -m app.rag.ingest
+```
+
+## Day-to-day
+
+Postgres keeps running until Docker stops it. Start it when it is not already up:
+
+```powershell
+docker compose up -d postgres
+```
+
+In one shell, from `backend`:
+
+```powershell
 uv run uvicorn app.main:app --reload --port 8000
 ```
 
 In a second shell, from `frontend`:
 
 ```powershell
-npm ci
 npm run dev
 ```
 
 Open http://localhost:5173. The Investigation tab runs the case. The Knowledge tab shows the sources and, after ingest, the chunk ids. The Architecture tab explains the pipeline.
+
+Restart the API after changing `.env`. `--reload` picks up code changes, not environment changes.
+
+## Other ways to run
 
 Inside the devcontainer, Postgres is the hostname `postgres`, and the devcontainer sets `DATABASE_URL` for you. Bind the servers to all interfaces so the forwarded ports work:
 
