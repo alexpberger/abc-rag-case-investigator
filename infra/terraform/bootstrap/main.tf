@@ -15,6 +15,8 @@ terraform {
 
 provider "azurerm" {
   features {}
+  # The account disables shared keys, so Blob checks must use the Azure login.
+  storage_use_azuread = true
 }
 
 variable "location" {
