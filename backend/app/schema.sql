@@ -21,3 +21,13 @@ CREATE TABLE IF NOT EXISTS chunks (
     content_hash TEXT NOT NULL,
     embedding vector(1536) NOT NULL
 );
+
+-- Daily and hourly counters for the public demo. One row per scope, route, and window.
+CREATE TABLE IF NOT EXISTS api_usage (
+    scope TEXT NOT NULL,
+    route TEXT NOT NULL,
+    window_kind TEXT NOT NULL,
+    window_start TIMESTAMPTZ NOT NULL,
+    hits INTEGER NOT NULL,
+    PRIMARY KEY (scope, route, window_kind, window_start)
+);

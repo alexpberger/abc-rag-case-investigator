@@ -9,3 +9,17 @@ embedding_deployment_name = "text-embedding-3-small"
 embedding_model_name      = "text-embedding-3-small"
 embedding_model_version   = "1"
 embedding_capacity        = 10
+
+# Public Container App. Names must be unique in the subscription or globally, as noted on each variable.
+# Leave deploy_container_app false until both images have been pushed. See the README.
+acr_name                       = "acrabcragdemochangeme"
+log_analytics_workspace_name   = "log-abc-rag-demo"
+container_app_environment_name = "cae-abc-rag-demo"
+container_app_name             = "ca-abc-rag-demo"
+image_tag                      = "1"
+deploy_container_app           = false
+monthly_budget_usd             = 50
+# First instant of the current month. Azure rejects a start date outside the current time grain.
+budget_start_date              = "2026-11-01T00:00:00Z"
+# Replace this placeholder in terraform.tfvars. Do not put a real mailbox in this example file.
+budget_alert_email             = "you@example.com"

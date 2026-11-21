@@ -314,6 +314,10 @@ export function InvestigationTab() {
               {running ? "Running investigation…" : "Run investigation"}
             </button>
           </div>
+          <p className="limit-note">
+            The file is fictional. This public demo stops after 100 investigations and 300 follow-up questions in a
+            UTC day.
+          </p>
           {running && (
             <p className="status" role="status">
               Retrieving sources and drafting the report.

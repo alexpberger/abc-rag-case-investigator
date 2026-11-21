@@ -13,7 +13,7 @@ const stages = [
   },
   {
     title: "PostgreSQL and pgvector",
-    body: "Chunks live in local Postgres. The embedding column is vector(1536). There is no approximate index: a few dozen rows are ordered exactly. Azure Database for PostgreSQL is a later option, not part of this demo.",
+    body: "Chunks live in Postgres with pgvector. Locally that is the Compose database. The public demo runs Postgres in the same Container App as the API, on a disk that lasts for the life of that replica. The embedding column is vector(1536). There is no approximate index: a few dozen rows are ordered exactly. Azure Database for PostgreSQL is a later option.",
   },
   {
     title: "Retrieval",
@@ -52,7 +52,11 @@ export function ArchitectureTab() {
       </section>
       <section className="card boundary">
         <h2>V1 boundary</h2>
-        <p>Local Postgres. No document upload. No lending decision. Azure OpenAI is the only model provider. Authentication, PDF ingestion, hybrid search, and agentic workflows are documented as later work, not built here.</p>
+        <p>
+          One public site, with no sign-in. Investigations stop at 100 per UTC day and follow-up questions at 300, with
+          a tighter hourly cap per network. No document upload. No lending decision. Azure OpenAI is the only model
+          provider. PDF ingestion, hybrid search, and agentic workflows are later work.
+        </p>
       </section>
     </div>
   );

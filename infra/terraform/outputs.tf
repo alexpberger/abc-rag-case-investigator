@@ -12,3 +12,18 @@ output "embedding_deployment_name" {
   description = "Value for AZURE_OPENAI_EMBEDDING_DEPLOYMENT."
   value       = azurerm_cognitive_deployment.embedding.name
 }
+
+output "acr_name" {
+  description = "Registry name for az acr build."
+  value       = azurerm_container_registry.main.name
+}
+
+output "acr_login_server" {
+  description = "Registry host used in the Container App image names."
+  value       = azurerm_container_registry.main.login_server
+}
+
+output "container_app_url" {
+  description = "Public HTTPS origin. Empty until deploy_container_app is true."
+  value       = var.deploy_container_app ? "https://${azurerm_container_app.web[0].ingress[0].fqdn}" : ""
+}

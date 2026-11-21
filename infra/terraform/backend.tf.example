@@ -1,0 +1,13 @@
+# Copy this file to backend.tf in this directory after the bootstrap stack has been applied.
+# backend.tf is safe to commit: it names the state account and does not contain the budget mailbox or API keys.
+# use_azuread_auth keeps the storage account key out of this configuration.
+
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "rg-abc-rag-tfstate"
+    storage_account_name = "stabcragln2041"
+    container_name       = "tfstate"
+    key                  = "abc-rag.tfstate"
+    use_azuread_auth     = true
+  }
+}

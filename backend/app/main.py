@@ -30,7 +30,14 @@ async def lifespan(app: FastAPI):
 
 def create_app() -> FastAPI:
     settings = get_settings()
-    app = FastAPI(title="ABC RAG Case Investigator", lifespan=lifespan)
+    docs = "/docs" if settings.expose_api_docs else None
+    app = FastAPI(
+        title="ABC RAG Case Investigator",
+        lifespan=lifespan,
+        docs_url=docs,
+        redoc_url="/redoc" if settings.expose_api_docs else None,
+        openapi_url="/openapi.json" if settings.expose_api_docs else None,
+    )
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_origin_list,

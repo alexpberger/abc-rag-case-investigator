@@ -90,7 +90,7 @@ Inside the devcontainer, Postgres is the hostname `postgres`, and the devcontain
 uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-`docker compose --profile demo up --build` starts Postgres, the API, and the UI in containers. Create `.env` first. The API container overrides `DATABASE_URL` so it points at the `postgres` service.
+`docker compose --profile demo up --build` starts Postgres, the API, and the UI in containers. Create `.env` first. The API container waits for Postgres, ingests the knowledge base, then starts the API. Unchanged files are not embedded again. The API container overrides `DATABASE_URL` so it points at the `postgres` service. The UI container in this profile is the Vite dev server, on port 5173.
 
 ## Tests
 
@@ -111,14 +111,14 @@ Unset the variable afterwards if you do not want later sessions to call Azure. C
 
 ## Azure OpenAI with Terraform
 
-Terraform in `infra/terraform` creates a resource group, an Azure OpenAI account, and two deployments. It does not create a database, and it does not host the app. It does not print access keys.
+Terraform in `infra/terraform` creates a resource group, an Azure OpenAI account, and two deployments. The same stack can host the public demo. It does not print access keys.
 
 ```powershell
 cd infra/terraform
 Copy-Item terraform.tfvars.example terraform.tfvars
 ```
 
-Edit `terraform.tfvars`. Change the account name so it is globally unique. Confirm the region and the model version strings against the current Azure OpenAI catalog before you apply. `terraform.tfvars` is gitignored.
+Edit `terraform.tfvars`. Change the account name and the registry name so they are globally unique. Set `budget_alert_email` to the mailbox that should receive the spend alert. Confirm the region and the model version strings against the current Azure OpenAI catalog before you apply. `terraform.tfvars` is gitignored. Do not put the mailbox in a file that is committed.
 
 ```powershell
 az login
@@ -134,8 +134,41 @@ Copy `openai_endpoint` into `AZURE_OPENAI_ENDPOINT`. Copy the deployment name ou
 az cognitiveservices account keys list --name <account> --resource-group <group> --query key1 -o tsv
 ```
 
-Local Terraform state can contain secrets even though the outputs do not include the key. State stays uncommitted. There is no remote backend in V1.
+The Container App reads that key from the account. You do not put it in `terraform.tfvars`.
+
+## Public demo
+
+One environment. The site is a Container App with three containers: nginx, the API, and Postgres with pgvector. Only nginx is on the internet. It serves the built UI and proxies `/api` to the API on localhost. Postgres is not published.
+
+The browser and the API share one host, so the production build uses `VITE_API_BASE_URL=same-origin`. Interactive API docs are off. `POST /api/investigate` stops at 100 calls per UTC day, and `POST /api/ask` at 300. Each network also stops at 10 investigations and 30 questions per hour. The counters are in Postgres. If a counter cannot be written, the API returns 503 and does not call Azure. A resource-group budget of $50 emails at 80 percent of actual spend and at 100 percent of forecast spend. The email does not stop the bill. The counters do.
+
+Chat and embedding capacity stay at 10, which is 10,000 tokens per minute. That is a rate ceiling. One replica is the maximum, so the app cannot scale into more concurrent calls.
+
+Postgres data lives on an empty disk that lasts as long as the replica. Azure Files is not a workable Postgres disk because it does not provide the file locks Postgres needs. A new replica runs ingest on startup. Unchanged source files are not embedded again.
+
+Apply the state backend before the apply that creates the Container App. That state holds the database password and the OpenAI key.
+
+```powershell
+cd infra/terraform/bootstrap
+terraform init
+terraform apply
+cd ..
+Copy-Item backend.tf.example backend.tf
+terraform init -migrate-state
+```
+
+`backend.tf` names the storage account and uses Azure AD. It does not contain the budget mailbox. The bootstrap grants Storage Blob Data Contributor to the account that applied it.
+
+Leave `deploy_container_app` false for the first apply of `infra/terraform`. That creates the registry. Build and push both images:
+
+```powershell
+.\infra\scripts\build-images.ps1 -Tag 1
+```
+
+Set `image_tag` to that tag and `deploy_container_app` to true in `terraform.tfvars`. Apply again. Open `container_app_url`. The first request waits while ingest embeds the knowledge base.
+
+To ship a later build, run the script with a new tag, set `image_tag` to it, and apply. The Container App pulls a new revision only when the tag changes.
 
 ## Secrets
 
-`.env`, `*.tfvars`, `.terraform/`, and `*.tfstate` are gitignored. `.env.example` and `terraform.tfvars.example` contain placeholders and the local database password only. The people, the address, and the bank in `knowledge/` are fictional.
+`.env`, `*.tfvars`, `.terraform/`, and `*.tfstate` are gitignored. `.env.example` and `terraform.tfvars.example` contain placeholders and the local database password only. The budget mailbox belongs in `terraform.tfvars` and nowhere else. The people, the address, and the bank in `knowledge/` are fictional.

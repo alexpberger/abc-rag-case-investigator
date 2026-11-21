@@ -14,6 +14,10 @@ export class ApiError extends Error {
 
 function apiBase(): string {
   const configured = import.meta.env.VITE_API_BASE_URL?.trim();
+  // The production image sets this so nginx and the API share one public host.
+  if (configured === "same-origin") {
+    return "";
+  }
   return (configured || "http://localhost:8000").replace(/\/$/, "");
 }
 

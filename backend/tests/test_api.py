@@ -2,7 +2,8 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.api import routes
-from app.main import app
+from app.config import get_settings
+from app.main import app, create_app
 from app.schemas import AskResponse, Citation, EvidenceItem, InvestigationReport
 
 
@@ -100,6 +101,18 @@ def test_case_and_documents_are_served_from_disk(client):
 
     missing = client.get("/api/documents/does-not-exist")
     assert missing.status_code == 404
+
+
+def test_public_mode_hides_the_interactive_docs(monkeypatch):
+    monkeypatch.setenv("EXPOSE_API_DOCS", "false")
+    get_settings.cache_clear()
+    try:
+        application = create_app()
+    finally:
+        get_settings.cache_clear()
+    assert application.docs_url is None
+    assert application.redoc_url is None
+    assert application.openapi_url is None
 
 
 def test_ask_response_shape(monkeypatch, client):

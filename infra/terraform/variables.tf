@@ -50,5 +50,60 @@ variable "embedding_model_version" {
 
 variable "embedding_capacity" {
   type        = number
-  description = "Embedding deployment capacity, in thousands of tokens per minute, for the GlobalStandard SKU."
+  description = "Embedding deployment capacity, in thousands of tokens per minute, for the GlobalStandard SKU. Keep this small on the public demo."
+}
+
+variable "acr_name" {
+  type        = string
+  description = "Globally unique Container Registry name. Alphanumeric only, 5 to 50 characters."
+}
+
+variable "log_analytics_workspace_name" {
+  type        = string
+  description = "Log Analytics workspace for the Container Apps environment."
+}
+
+variable "log_analytics_daily_quota_gb" {
+  type        = number
+  description = "Daily ingestion cap for the workspace, in GB. This stops log volume from becoming its own bill."
+  default     = 1
+}
+
+variable "container_app_environment_name" {
+  type        = string
+  description = "Name of the single Container Apps environment."
+}
+
+variable "container_app_name" {
+  type        = string
+  description = "Name of the Container App. The public host is this name plus the environment domain."
+}
+
+variable "image_tag" {
+  type        = string
+  description = "Tag pushed to the registry for both the API image and the web image. Bump it to roll a new revision."
+  default     = "1"
+}
+
+variable "deploy_container_app" {
+  type        = bool
+  description = "Create the Container App. Leave false until both images exist in the registry."
+  default     = false
+}
+
+variable "monthly_budget_usd" {
+  type        = number
+  description = "Resource-group budget in USD. The alert emails at 80 and 100 percent. It does not stop spend."
+  default     = 50
+}
+
+variable "budget_start_date" {
+  type        = string
+  description = "Budget start, first instant of a month, for example 2026-11-01T00:00:00Z. Use the first day of the current month."
+}
+
+variable "budget_alert_email" {
+  type        = string
+  description = "Mailbox for the budget alert. Set it only in terraform.tfvars. Do not commit that file."
+  sensitive   = true
 }

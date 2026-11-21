@@ -5,13 +5,14 @@ from __future__ import annotations
 import logging
 
 import psycopg
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 
 from app.config import get_settings
 from app.db import count_chunks, database_ok, fetch_chunks
 from app.rag.chunk import DocumentFormatError, load_documents
 from app.rag.embeddings import EmbeddingError
 from app.rag.generate import GenerationError, load_case_brief, run_ask, run_investigation
+from app.usage import UsageLimitError, UsageTrackerError, enforce_usage
 from app.schemas import (
     AskRequest,
     AskResponse,
@@ -205,9 +206,28 @@ def _generation_error(exc: Exception) -> HTTPException:
     )
 
 
+def _enforce_usage(request: Request, route: str) -> None:
+    try:
+        enforce_usage(request, route)
+    except UsageLimitError as exc:
+        raise HTTPException(
+            status_code=429,
+            detail={"error": "usage_limit", "scope": exc.scope, "message": str(exc)},
+        ) from exc
+    except UsageTrackerError as exc:
+        raise HTTPException(
+            status_code=503,
+            detail={
+                "error": "usage_tracker_unavailable",
+                "message": "The usage limit could not be checked. The request was not sent to Azure OpenAI.",
+            },
+        ) from exc
+
+
 @router.post("/investigate", response_model=InvestigationReport)
-def investigate() -> InvestigationReport:
+def investigate(request: Request) -> InvestigationReport:
     require_retrieval_ready()
+    _enforce_usage(request, "investigate")
     try:
         return run_investigation()
     except Exception as exc:
@@ -215,9 +235,10 @@ def investigate() -> InvestigationReport:
 
 
 @router.post("/ask", response_model=AskResponse)
-def ask(request: AskRequest) -> AskResponse:
+def ask(body: AskRequest, request: Request) -> AskResponse:
     require_retrieval_ready()
+    _enforce_usage(request, "ask")
     try:
-        return run_ask(request)
+        return run_ask(body)
     except Exception as exc:
         raise _generation_error(exc) from exc

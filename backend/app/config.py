@@ -35,6 +35,15 @@ class Settings(BaseSettings):
     embedding_dimensions: int = SCHEMA_EMBEDDING_DIMENSIONS
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
     knowledge_dir: str = ""
+    # Public demo caps. A restart does not reset them; the counters live in Postgres.
+    usage_limits_enabled: bool = True
+    investigate_daily_limit: int = 100
+    ask_daily_limit: int = 300
+    investigate_hourly_limit: int = 10
+    ask_hourly_limit: int = 30
+    # Trust the last X-Forwarded-For hop when nginx is the only public listener.
+    trust_proxy: bool = False
+    expose_api_docs: bool = True
 
     @property
     def cors_origin_list(self) -> list[str]:
