@@ -120,6 +120,15 @@ jobs:
         env:
           TF_IN_AUTOMATION: true
         run: |
+          set +e
+          set -o pipefail
           terraform apply -input=false -auto-approve \
             -var="image_tag=${{ github.sha }}" \
-            -var="deploy_container_app=true"
+            -var="deploy_container_app=true" 2>&1 | tee apply.log
+          code=${PIPESTATUS[0]}
+          if [ "$code" -ne 0 ]; then
+            grep -E '^Error:' apply.log | head -n 20 | while IFS= read -r line; do
+              echo "::error::${line}"
+            done
+          fi
+          exit "$code"

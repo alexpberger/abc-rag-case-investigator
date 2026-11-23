@@ -103,15 +103,22 @@ resource "azurerm_container_app" "web" {
       memory = "0.5Gi"
 
       liveness_probe {
-        transport = "HTTP"
-        port      = 80
-        path      = "/"
+        transport               = "HTTP"
+        port                    = 80
+        path                    = "/"
+        interval_seconds        = 10
+        timeout                 = 1
+        failure_count_threshold = 3
       }
 
       readiness_probe {
-        transport = "HTTP"
-        port      = 80
-        path      = "/"
+        transport               = "HTTP"
+        port                    = 80
+        path                    = "/"
+        interval_seconds        = 10
+        timeout                 = 1
+        failure_count_threshold = 3
+        success_count_threshold = 3
       }
     }
 
@@ -192,10 +199,12 @@ resource "azurerm_container_app" "web" {
       }
 
       liveness_probe {
-        transport = "HTTP"
-        port      = 8000
-        path      = "/api/health"
-        timeout   = 5
+        transport               = "HTTP"
+        port                    = 8000
+        path                    = "/api/health"
+        interval_seconds        = 10
+        timeout                 = 5
+        failure_count_threshold = 3
       }
     }
 
@@ -227,12 +236,16 @@ resource "azurerm_container_app" "web" {
         transport               = "TCP"
         port                    = 5432
         interval_seconds        = 5
+        timeout                 = 1
         failure_count_threshold = 24
       }
 
       liveness_probe {
-        transport = "TCP"
-        port      = 5432
+        transport               = "TCP"
+        port                    = 5432
+        interval_seconds        = 10
+        timeout                 = 1
+        failure_count_threshold = 3
       }
     }
   }
