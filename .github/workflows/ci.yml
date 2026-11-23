@@ -44,9 +44,13 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    # The Azure CLI session is a service principal. Terraform rejects that for backend auth, so it uses the OIDC token instead. az still uses the CLI for the image build.
+    # Terraform 1.9 uses the Azure CLI for the state backend unless OIDC is selected. The CLI session is a service principal, which that backend rejects. az still uses the CLI for the image build.
     env:
       ARM_USE_CLI: false
+      ARM_USE_OIDC: true
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     concurrency:
       group: deploy-main
       cancel-in-progress: false
