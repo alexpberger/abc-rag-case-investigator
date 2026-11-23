@@ -118,7 +118,7 @@ cd infra/terraform
 Copy-Item terraform.tfvars.example terraform.tfvars
 ```
 
-Edit `terraform.tfvars`. Change the account name and the registry name so they are globally unique. Set `github_repository` to `owner/name` for the repository that deploys `main`. Set `budget_alert_email` to the mailbox that should receive the spend alert. Confirm the region and the model version strings against the current Azure OpenAI catalog before you apply. `terraform.tfvars` is gitignored. Do not put the mailbox in a file that is committed.
+Edit `terraform.tfvars`. Change the account name and the registry name so they are globally unique. Set `github_repository` to `owner/name`, or to `owner@id/name@id` when the repository uses immutable OIDC subject claims. Set `budget_alert_email` to the mailbox that should receive the spend alert. Confirm the region and the model version strings against the current Azure OpenAI catalog before you apply. `terraform.tfvars` is gitignored. Do not put the mailbox in a file that is committed.
 
 ```powershell
 az login

@@ -25,6 +25,7 @@ dist/
 *.tfstate.*
 *.tfvars
 !*.tfvars.example
+!infra/terraform/github.auto.tfvars
 crash.log
 crash.*.log
 override.tf

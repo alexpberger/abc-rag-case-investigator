@@ -87,11 +87,11 @@ variable "image_tag" {
 
 variable "github_repository" {
   type        = string
-  description = "GitHub repository that may deploy main, as owner/name. This is the federated credential subject."
+  description = "GitHub repository that may deploy main. Use owner/name, or owner@id/name@id when the repository uses immutable OIDC subject claims. This becomes the federated credential subject."
 
   validation {
-    condition     = can(regex("^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$", var.github_repository))
-    error_message = "github_repository must be owner/name."
+    condition     = can(regex("^[A-Za-z0-9_.-]+(@[0-9]+)?/[A-Za-z0-9_.-]+(@[0-9]+)?$", var.github_repository))
+    error_message = "github_repository must be owner/name or owner@id/name@id."
   }
 }
 
