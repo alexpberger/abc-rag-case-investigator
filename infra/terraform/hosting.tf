@@ -243,13 +243,15 @@ resource "azurerm_container_app" "web" {
 # GitHub Actions on main signs in as this identity. No client secret.
 # Contributor covers image builds and the Container App. User Access Administrator
 # is required so a later apply can read the role assignments in this stack.
-# The state account is the one named in backend.tf. The applying account must be allowed to create role assignments.
+# The state account is the one named in backend.tf. Its id is built here instead of
+# read with a data source: this identity can assign roles on that account, and it
+# cannot read the account resource in the other resource group.
+# The applying account must be allowed to create role assignments.
 
 data "azurerm_client_config" "current" {}
 
-data "azurerm_storage_account" "tfstate" {
-  name                = "stabcragln2041"
-  resource_group_name = "rg-abc-rag-tfstate"
+locals {
+  tfstate_storage_account_id = "/subscriptions/${data.azurerm_client_config.current.subscription_id}/resourceGroups/rg-abc-rag-tfstate/providers/Microsoft.Storage/storageAccounts/stabcragln2041"
 }
 
 resource "azurerm_user_assigned_identity" "github" {
@@ -279,13 +281,13 @@ resource "azurerm_role_assignment" "github_role_admin" {
 }
 
 resource "azurerm_role_assignment" "github_state" {
-  scope                = data.azurerm_storage_account.tfstate.id
+  scope                = local.tfstate_storage_account_id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = azurerm_user_assigned_identity.github.principal_id
 }
 
 resource "azurerm_role_assignment" "github_state_role_admin" {
-  scope                = data.azurerm_storage_account.tfstate.id
+  scope                = local.tfstate_storage_account_id
   role_definition_name = "User Access Administrator"
   principal_id         = azurerm_user_assigned_identity.github.principal_id
 }
