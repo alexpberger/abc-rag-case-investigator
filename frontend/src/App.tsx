@@ -16,7 +16,7 @@ type TabId = (typeof tabs)[number][0];
 function tabFromHash(): TabId {
   const hash = window.location.hash.replace("#", "");
   const match = tabs.find(([id]) => id === hash);
-  return match ? match[0] : "investigate";
+  return match ? match[0] : "about";
 }
 
 export function App() {
