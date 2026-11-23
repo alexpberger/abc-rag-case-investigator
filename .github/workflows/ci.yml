@@ -104,7 +104,7 @@ jobs:
         if: steps.changes.outputs.deploy == 'true'
         run: |
           set -euo pipefail
-          registry="$(terraform -chdir=infra/terraform output -raw -no-color acr_name | tr -d '\r' | tail -n 1)"
+          registry="$(terraform -chdir=infra/terraform output -raw -no-color acr_name | tr -d '\r' | grep -E '^[a-zA-Z0-9]+$' | tail -n 1)"
           if [ -z "$registry" ]; then
             echo "acr_name is empty. Apply infra/terraform before the first deploy." >&2
             exit 1
