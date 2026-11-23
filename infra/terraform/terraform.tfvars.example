@@ -11,13 +11,16 @@ embedding_model_version   = "1"
 embedding_capacity        = 10
 
 # Public Container App. Names must be unique in the subscription or globally, as noted on each variable.
-# Leave deploy_container_app false until both images have been pushed. See the README.
+# Leave deploy_container_app false for the first local apply. A push to main sets it true. See the README.
 acr_name                       = "acrabcragdemochangeme"
 log_analytics_workspace_name   = "log-abc-rag-demo"
 container_app_environment_name = "cae-abc-rag-demo"
 container_app_name             = "ca-abc-rag-demo"
+# Bootstrap tag only. A push to main applies the commit SHA instead.
 image_tag                      = "1"
 deploy_container_app           = false
+# Repository that may deploy main. Replace owner/name. Do not commit a real mailbox below.
+github_repository              = "owner/abc-rag-case-investigator"
 monthly_budget_usd             = 50
 # First instant of the current month. Azure rejects a start date outside the current time grain.
 budget_start_date              = "2026-11-01T00:00:00Z"

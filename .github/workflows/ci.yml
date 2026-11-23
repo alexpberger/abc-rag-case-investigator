@@ -36,3 +36,89 @@ jobs:
       - name: Typecheck
         working-directory: frontend
         run: npx tsc --noEmit
+
+  deploy:
+    needs: [backend, frontend]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    concurrency:
+      group: deploy-main
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect deploy paths
+        id: changes
+        run: |
+          set -euo pipefail
+          before="${{ github.event.before }}"
+          if [ "$before" = "0000000000000000000000000000000000000000" ] || ! git cat-file -e "${before}^{commit}" 2>/dev/null; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if git diff --name-only "$before" HEAD | grep -Eq '^(backend/|frontend/|knowledge/|infra/|\.github/workflows/ci\.yml)'; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Write Terraform variables
+        if: steps.changes.outputs.deploy == 'true'
+        working-directory: infra/terraform
+        env:
+          TF_VARS: ${{ secrets.TF_VARS }}
+        run: |
+          set -euo pipefail
+          if [ -z "$TF_VARS" ]; then
+            echo "TF_VARS secret is empty." >&2
+            exit 1
+          fi
+          printf '%s\n' "$TF_VARS" > terraform.tfvars
+
+      - name: Azure login
+        if: steps.changes.outputs.deploy == 'true'
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Setup Terraform
+        if: steps.changes.outputs.deploy == 'true'
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.8
+          terraform_wrapper: false
+
+      - name: Terraform init
+        if: steps.changes.outputs.deploy == 'true'
+        working-directory: infra/terraform
+        run: terraform init -input=false
+
+      - name: Build and push images
+        if: steps.changes.outputs.deploy == 'true'
+        run: |
+          set -euo pipefail
+          registry="$(terraform -chdir=infra/terraform output -raw acr_name)"
+          if [ -z "$registry" ]; then
+            echo "acr_name is empty. Apply infra/terraform before the first deploy." >&2
+            exit 1
+          fi
+          tag="${{ github.sha }}"
+          az acr build --registry "$registry" --image "abc-rag-api:${tag}" --file backend/Dockerfile .
+          az acr build --registry "$registry" --image "abc-rag-web:${tag}" --file frontend/Dockerfile frontend
+
+      - name: Terraform apply
+        if: steps.changes.outputs.deploy == 'true'
+        working-directory: infra/terraform
+        env:
+          TF_IN_AUTOMATION: true
+        run: |
+          terraform apply -input=false -auto-approve \
+            -var="image_tag=${{ github.sha }}" \
+            -var="deploy_container_app=true"

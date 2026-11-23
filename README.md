@@ -107,7 +107,7 @@ $env:RUN_RETRIEVAL_EVAL = "1"
 uv run pytest -m eval -s
 ```
 
-Unset the variable afterwards if you do not want later sessions to call Azure. CI runs `pytest -m "not eval"` and `tsc --noEmit`. It has no Azure secrets.
+Unset the variable afterwards if you do not want later sessions to call Azure. CI runs `pytest -m "not eval"` and `tsc --noEmit` on every push and pull request. Those jobs do not call Azure. A push to `main` then deploys when the app, the knowledge base, or the infra changed.
 
 ## Azure OpenAI with Terraform
 
@@ -118,7 +118,7 @@ cd infra/terraform
 Copy-Item terraform.tfvars.example terraform.tfvars
 ```
 
-Edit `terraform.tfvars`. Change the account name and the registry name so they are globally unique. Set `budget_alert_email` to the mailbox that should receive the spend alert. Confirm the region and the model version strings against the current Azure OpenAI catalog before you apply. `terraform.tfvars` is gitignored. Do not put the mailbox in a file that is committed.
+Edit `terraform.tfvars`. Change the account name and the registry name so they are globally unique. Set `github_repository` to `owner/name` for the repository that deploys `main`. Set `budget_alert_email` to the mailbox that should receive the spend alert. Confirm the region and the model version strings against the current Azure OpenAI catalog before you apply. `terraform.tfvars` is gitignored. Do not put the mailbox in a file that is committed.
 
 ```powershell
 az login
@@ -159,15 +159,13 @@ terraform init -migrate-state
 
 `backend.tf` names the storage account and uses Azure AD. It does not contain the budget mailbox. The bootstrap grants Storage Blob Data Contributor to the account that applied it.
 
-Leave `deploy_container_app` false for the first apply of `infra/terraform`. That creates the registry. Build and push both images:
+Leave `deploy_container_app` false for the first apply of `infra/terraform`. That creates the registry and the GitHub Actions identity. The account that applies must be allowed to create role assignments. Role assignment can take a minute before the first workflow login works.
 
-```powershell
-.\infra\scripts\build-images.ps1 -Tag 1
-```
+Copy `github_actions_client_id` into the GitHub secret `AZURE_CLIENT_ID`, `tenant_id` into `AZURE_TENANT_ID`, and `subscription_id` into `AZURE_SUBSCRIPTION_ID`. Add a fourth secret, `TF_VARS`, whose value is the contents of `terraform.tfvars`. The tag in that file is only the bootstrap value.
 
-Set `image_tag` to that tag and `deploy_container_app` to true in `terraform.tfvars`. Apply again. Open `container_app_url`. The first request waits while ingest embeds the knowledge base.
+A push to `main` builds both images tagged with the commit SHA and applies Terraform with that tag. The workflow sets `deploy_container_app` to true for that apply. It deploys when `backend/`, `frontend/`, `knowledge/`, `infra/`, or the workflow file changed. Open `container_app_url`. The first request after a new revision waits while ingest embeds the knowledge base. A new revision replaces the replica, so Postgres starts empty.
 
-To ship a later build, run the script with a new tag, set `image_tag` to it, and apply. The Container App pulls a new revision only when the tag changes.
+To roll a commit from your machine after its images exist, run `terraform apply -var="image_tag=<commit>" -var="deploy_container_app=true"`. `infra/scripts/build-images.ps1 -Tag <commit>` pushes those images when you are not using the workflow. The next push to `main` applies that commit's SHA.
 
 ## Secrets
 

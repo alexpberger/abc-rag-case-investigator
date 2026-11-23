@@ -27,3 +27,18 @@ output "container_app_url" {
   description = "Public HTTPS origin. Empty until deploy_container_app is true."
   value       = var.deploy_container_app ? "https://${azurerm_container_app.web[0].ingress[0].fqdn}" : ""
 }
+
+output "github_actions_client_id" {
+  description = "Value for the AZURE_CLIENT_ID GitHub secret. This is the deploy identity, not an application password."
+  value       = azurerm_user_assigned_identity.github.client_id
+}
+
+output "tenant_id" {
+  description = "Value for the AZURE_TENANT_ID GitHub secret."
+  value       = data.azurerm_client_config.current.tenant_id
+}
+
+output "subscription_id" {
+  description = "Value for the AZURE_SUBSCRIPTION_ID GitHub secret."
+  value       = data.azurerm_client_config.current.subscription_id
+}

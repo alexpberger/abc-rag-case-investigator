@@ -81,8 +81,18 @@ variable "container_app_name" {
 
 variable "image_tag" {
   type        = string
-  description = "Tag pushed to the registry for both the API image and the web image. Bump it to roll a new revision."
+  description = "Tag pushed to the registry for both the API image and the web image. A push to main applies the commit SHA. The value in terraform.tfvars is the bootstrap tag."
   default     = "1"
+}
+
+variable "github_repository" {
+  type        = string
+  description = "GitHub repository that may deploy main, as owner/name. This is the federated credential subject."
+
+  validation {
+    condition     = can(regex("^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$", var.github_repository))
+    error_message = "github_repository must be owner/name."
+  }
 }
 
 variable "deploy_container_app" {

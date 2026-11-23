@@ -240,6 +240,56 @@ resource "azurerm_container_app" "web" {
   depends_on = [azurerm_role_assignment.acr_pull]
 }
 
+# GitHub Actions on main signs in as this identity. No client secret.
+# Contributor covers image builds and the Container App. User Access Administrator
+# is required so a later apply can read the role assignments in this stack.
+# The state account is the one named in backend.tf. The applying account must be allowed to create role assignments.
+
+data "azurerm_client_config" "current" {}
+
+data "azurerm_storage_account" "tfstate" {
+  name                = "stabcragln2041"
+  resource_group_name = "rg-abc-rag-tfstate"
+}
+
+resource "azurerm_user_assigned_identity" "github" {
+  name                = "${var.container_app_name}-github"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+}
+
+resource "azurerm_federated_identity_credential" "github_main" {
+  name                      = "github-main"
+  user_assigned_identity_id = azurerm_user_assigned_identity.github.id
+  audience                  = ["api://AzureADTokenExchange"]
+  issuer                    = "https://token.actions.githubusercontent.com"
+  subject                   = "repo:${var.github_repository}:ref:refs/heads/main"
+}
+
+resource "azurerm_role_assignment" "github_contributor" {
+  scope                = azurerm_resource_group.main.id
+  role_definition_name = "Contributor"
+  principal_id         = azurerm_user_assigned_identity.github.principal_id
+}
+
+resource "azurerm_role_assignment" "github_role_admin" {
+  scope                = azurerm_resource_group.main.id
+  role_definition_name = "User Access Administrator"
+  principal_id         = azurerm_user_assigned_identity.github.principal_id
+}
+
+resource "azurerm_role_assignment" "github_state" {
+  scope                = data.azurerm_storage_account.tfstate.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = azurerm_user_assigned_identity.github.principal_id
+}
+
+resource "azurerm_role_assignment" "github_state_role_admin" {
+  scope                = data.azurerm_storage_account.tfstate.id
+  role_definition_name = "User Access Administrator"
+  principal_id         = azurerm_user_assigned_identity.github.principal_id
+}
+
 resource "azurerm_consumption_budget_resource_group" "main" {
   name              = "budget-${var.resource_group_name}"
   resource_group_id = azurerm_resource_group.main.id
