@@ -104,11 +104,12 @@ jobs:
         if: steps.changes.outputs.deploy == 'true'
         run: |
           set -euo pipefail
-          registry="$(terraform -chdir=infra/terraform output -raw -no-color acr_name | tr -d '\r' | grep -E '^[a-zA-Z0-9]+$' | tail -n 1)"
+          registry="$(sed -nE 's/^acr_name[[:space:]]*=[[:space:]]*"([^"]+)".*/\1/p' infra/terraform/terraform.tfvars)"
           if [ -z "$registry" ]; then
-            echo "acr_name is empty. Apply infra/terraform before the first deploy." >&2
+            echo "acr_name is empty. Set it in the TF_VARS secret." >&2
             exit 1
           fi
+          echo "Using registry: ${registry}"
           tag="${{ github.sha }}"
           az acr build --registry "$registry" --image "abc-rag-api:${tag}" --file backend/Dockerfile .
           az acr build --registry "$registry" --image "abc-rag-web:${tag}" --file frontend/Dockerfile frontend
