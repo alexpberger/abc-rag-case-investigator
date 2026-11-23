@@ -3,7 +3,7 @@ id: credit-risk-assessment
 title: Credit Risk Assessment
 ---
 
-This note was prepared by R. Okonkwo at Berger Bank on 6 October 2026 for fictional file LN-EXAMPLE-2041, Jens Hansen. It compares the application with the income papers and with the bureau information then on the file. It records differences. It does not recommend that the loan be approved, and it does not recommend that the loan be declined.
+This note was prepared by R. Okonkwo at Example Bank on 6 October 2026 for fictional file LN-EXAMPLE-2041, Jens Hansen. It compares the application with the income papers and with the bureau information then on the file. It records differences. It does not recommend that the loan be approved, and it does not recommend that the loan be declined.
 
 # Employment and income comparison
 

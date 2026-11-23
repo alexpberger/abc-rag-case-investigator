@@ -3,7 +3,7 @@ id: income-documentation
 title: Income Documentation
 ---
 
-This note collects the income papers on fictional file LN-EXAMPLE-2041, Jens Hansen, received by Berger Bank on 3 October 2026. It describes the payslips and the bank extract that are in the file. It is a record of those papers. It does not interpret the credit policy, and it does not say whether the loan should be made.
+This note collects the income papers on fictional file LN-EXAMPLE-2041, Jens Hansen, received by Example Bank on 3 October 2026. It describes the payslips and the bank extract that are in the file. It is a record of those papers. It does not interpret the credit policy, and it does not say whether the loan should be made.
 
 # Payslips
 
@@ -19,7 +19,7 @@ The header of each slip prints an employment start date of 3 February 2026. The 
 
 # Bank credits
 
-The file contains a Berger Bank current-account extract for August 2026 and September 2026. Salary credits on the extract match the net pay printed on the two slips. The extract does not show a separate overtime payment. The note does not reconstruct gross pay from the net credits.
+The file contains an Example Bank current-account extract for August 2026 and September 2026. Salary credits on the extract match the net pay printed on the two slips. The extract does not show a separate overtime payment. The note does not reconstruct gross pay from the net credits.
 
 ## Unexplained credit
 

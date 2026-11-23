@@ -135,10 +135,48 @@ label {
   line-height: 1.55;
 }
 
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-bar {
+  flex: none;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  padding: 0.9rem 1.25rem;
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: fit-content;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site-brand:hover {
+  color: var(--ink);
+}
+
+.site-brand:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.site-logo {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+}
+
 .shell {
   display: grid;
   grid-template-columns: 16rem minmax(0, 1fr);
-  min-height: 100vh;
+  flex: 1 0 auto;
 }
 
 .nav {

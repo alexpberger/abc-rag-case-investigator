@@ -3,7 +3,7 @@ id: customer-correspondence
 title: Customer Correspondence
 ---
 
-This note collects the correspondence on fictional file LN-EXAMPLE-2041, Jens Hansen, Birkevej 18, 2. tv., Eksempelhavn. The case worker is S. Patel at Berger Bank. The messages below are the request for records and the reply that came back. No lending position is stated in either message. The file remains open.
+This note collects the correspondence on fictional file LN-EXAMPLE-2041, Jens Hansen, Birkevej 18, 2. tv., Eksempelhavn. The case worker is S. Patel at Example Bank. The messages below are the request for records and the reply that came back. No lending position is stated in either message. The file remains open.
 
 # Request for records
 
@@ -21,4 +21,4 @@ The reply does not name an employer before Nordlinje A/S, and it does not give a
 
 No further message from the case worker is in the file after 11 October 2026. No lender has written an approval, a decline, or a recommended outcome. The correspondence does not close the application. S. Patel's request remains open on the items the reply did not supply, in particular the employer letter, the source of the credit, and the year-end document.
 
-The file, as correspondence, shows a request, an incomplete reply, and no decision. Anyone reading only these messages can see that Berger Bank asked for documents and a specific explanation, and that the applicant answered in part and without those papers. The correspondence stops there. It does not say what the lender will do when the reply date passes, and it does not treat the incomplete reply as the end of the investigation.
+The file, as correspondence, shows a request, an incomplete reply, and no decision. Anyone reading only these messages can see that Example Bank asked for documents and a specific explanation, and that the applicant answered in part and without those papers. The correspondence stops there. It does not say what the lender will do when the reply date passes, and it does not treat the incomplete reply as the end of the investigation.

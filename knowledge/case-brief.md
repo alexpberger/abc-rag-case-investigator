@@ -8,7 +8,7 @@ title: Hansen personal-loan file
 - **Customer:** Jens Hansen
 - **Address:** Birkevej 18, 2. tv., Eksempelhavn
 - **Application:** LN-EXAMPLE-2041
-- **Lender:** Berger Bank
+- **Lender:** Example Bank
 - **Applied:** 2 October 2026
 - **Loan requested:** DKK 125,000 over 48 months
 - **Purpose:** Kitchen repairs

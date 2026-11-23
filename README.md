@@ -1,6 +1,6 @@
 # ABC RAG Case Investigator
 
-A small, inspectable RAG demo. A fictional personal-loan file at Berger Bank is spread across five Markdown sources. The app retrieves the relevant sections, drafts a structured investigation, and cites the chunks it used.
+A small, inspectable RAG demo. A fictional personal-loan file at Example Bank is spread across five Markdown sources. The app retrieves the relevant sections, drafts a structured investigation, and cites the chunks it used.
 
 It does not decide the loan. The report can say the evidence is insufficient. It cannot approve or decline the application.
 

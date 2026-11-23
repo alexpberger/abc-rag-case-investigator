@@ -39,35 +39,49 @@ export function App() {
   }
 
   return (
-    <div className="shell">
-      <nav className="nav" aria-label="Primary">
-        {tabs.map(([id, label]) => (
-          <button
-            key={id}
-            type="button"
-            className={tab === id ? "active" : undefined}
-            aria-current={tab === id ? "page" : undefined}
-            onClick={() => selectTab(id)}
-          >
-            {label}
-          </button>
-        ))}
-      </nav>
-      <div className="main">
-        <header className="header">
-          <div>
-            <p className="section-label">Case investigator</p>
-            <p className="brand-line">Berger Bank</p>
+    <div className="page">
+      <header className="site-bar">
+        <a className="site-brand" href="https://www.alexbergerconsulting.dk/">
+          <img
+            className="site-logo"
+            src="/abc-logo.png"
+            width={512}
+            height={512}
+            alt=""
+          />
+          <span>Alex Berger Consulting</span>
+        </a>
+      </header>
+      <div className="shell">
+        <nav className="nav" aria-label="Primary">
+          {tabs.map(([id, label]) => (
+            <button
+              key={id}
+              type="button"
+              className={tab === id ? "active" : undefined}
+              aria-current={tab === id ? "page" : undefined}
+              onClick={() => selectTab(id)}
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
+        <div className="main">
+          <header className="header">
+            <div>
+              <p className="section-label">Case investigator</p>
+              <p className="brand-line">Example Bank</p>
+            </div>
+          </header>
+          <div className="intro">
+            <h1>{current[1]}</h1>
+            <hr className="accent-rule" />
           </div>
-        </header>
-        <div className="intro">
-          <h1>{current[1]}</h1>
-          <hr className="accent-rule" />
+          {tab === "investigate" && <InvestigationTab />}
+          {tab === "knowledge" && <KnowledgeTab />}
+          {tab === "architecture" && <ArchitectureTab />}
+          {tab === "about" && <AboutTab />}
         </div>
-        {tab === "investigate" && <InvestigationTab />}
-        {tab === "knowledge" && <KnowledgeTab />}
-        {tab === "architecture" && <ArchitectureTab />}
-        {tab === "about" && <AboutTab />}
       </div>
     </div>
   );

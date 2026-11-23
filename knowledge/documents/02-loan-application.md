@@ -3,7 +3,7 @@ id: loan-application
 title: Loan Application
 ---
 
-This application was completed by Jens Hansen for fictional file LN-EXAMPLE-2041 at Berger Bank. Hansen lives at Birkevej 18, 2. tv., Eksempelhavn. The form records what the applicant stated on 2 October 2026. It is not a finding about income or employment, and it is not a request that the loan be approved. The bank took the form. It did not decide it.
+This application was completed by Jens Hansen for fictional file LN-EXAMPLE-2041 at Example Bank. Hansen lives at Birkevej 18, 2. tv., Eksempelhavn. The form records what the applicant stated on 2 October 2026. It is not a finding about income or employment, and it is not a request that the loan be approved. The bank took the form. It did not decide it.
 
 # Amount and purpose
 

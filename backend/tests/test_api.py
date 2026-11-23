@@ -87,7 +87,7 @@ def test_investigate_returns_the_grounded_report(monkeypatch, client):
 def test_case_and_documents_are_served_from_disk(client):
     case = client.get("/api/case")
     assert case.status_code == 200
-    assert "Berger Bank" in case.json()["markdown"]
+    assert "Example Bank" in case.json()["markdown"]
 
     listing = client.get("/api/documents")
     assert listing.status_code == 200

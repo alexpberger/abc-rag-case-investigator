@@ -3,7 +3,7 @@ id: credit-policy
 title: Personal Loan Credit Policy
 ---
 
-This excerpt is the personal-loan portion of the credit policy of Berger Bank. It is a fictional teaching document. It states what a file must contain before a person may consider a loan, what an application form cannot establish by itself, and who is allowed to decide. It does not describe the Hansen application, and it does not apply itself to any particular set of facts. It publishes no score cutoff, no debt-ratio pass mark, and no income floor.
+This excerpt is the personal-loan portion of the credit policy of Example Bank. It is a fictional teaching document. It states what a file must contain before a person may consider a loan, what an application form cannot establish by itself, and who is allowed to decide. It does not describe the Hansen application, and it does not apply itself to any particular set of facts. It publishes no score cutoff, no debt-ratio pass mark, and no income floor.
 
 # Eligibility
 
@@ -35,6 +35,6 @@ The file needs income documents for the recent period, the employment start date
 
 # Who decides
 
-A lending decision is made by an authorised lender at Berger Bank. No vendor, score, ratio, or software assistant approves or declines a loan. An investigation report can arrange what the documents say, point to these sections, and list what is still missing. It is not a lending decision.
+A lending decision is made by an authorised lender at Example Bank. No vendor, score, ratio, or software assistant approves or declines a loan. An investigation report can arrange what the documents say, point to these sections, and list what is still missing. It is not a lending decision.
 
 When the documents do not establish that income, tenure, and obligations are present and consistent with the application, the lender does not yet have a basis for a final decision. The policy does not require a guess. It requires a decision by a person, made on a sufficient file. Holding the file open is neither an approval nor a decline.
