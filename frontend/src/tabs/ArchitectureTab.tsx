@@ -1,43 +1,56 @@
 const stages = [
   {
-    title: "Source documents",
-    body: "Five Markdown files in the repository: the credit policy, the loan application, the income documents, the risk assessment, and the correspondence. They are fictional, versioned, and readable on GitHub.",
-  },
-  {
-    title: "Markdown parsing and chunking",
-    body: "Each file has id and title in front matter. The chunker splits on headings through level 3 and keeps the heading path, such as Eligibility / Verified income and employment. A section under 6,000 characters is one chunk. Longer sections split on blank lines, with no overlap. Chunk ids look like credit-policy/4.",
+    title: "Documents",
+    body: (
+      <>
+        The five sources are split on headings into sections, each with a stable id such as{" "}
+        <code>credit-policy/4</code>.
+      </>
+    ),
   },
   {
     title: "Embeddings",
-    body: "Azure OpenAI embeds each chunk, including its section path, with text-embedding-3-small (1,536 dimensions). Ingest skips a document whose file hash has not changed. The deployment name comes from the environment, not from the code.",
-  },
-  {
-    title: "PostgreSQL and pgvector",
-    body: "Chunks live in Postgres with pgvector. Locally that is the Compose database. The public demo runs Postgres in the same Container App as the API, on a disk that lasts for the life of that replica. The embedding column is vector(1536). There is no approximate index: a few dozen rows are ordered exactly. Azure Database for PostgreSQL is a later option.",
+    body: "Each section, including its heading path, is embedded with Azure OpenAI and stored in Postgres.",
   },
   {
     title: "Retrieval",
-    body: "The investigation runs five fixed queries and merges the closest chunks, keeping at most twelve. A follow-up question uses one query and six chunks. The queries are written in the retrieval module. Nothing plans them at runtime.",
+    body: "An investigation runs five fixed questions and keeps up to twelve sections. A follow-up question searches on that question alone.",
   },
   {
-    title: "Azure OpenAI generation",
-    body: "The chat deployment writes a structured report: summary, supporting evidence, concerns, risks, and inconsistencies, policy and guidelines, missing information, and recommended steps. The status can be insufficient evidence or not determined. It cannot be approve or decline.",
+    title: "Report",
+    body: "Azure OpenAI writes the structured investigation from those sections and the case brief: supporting evidence, concerns, policy, missing information, and recommended steps. The status is insufficient evidence or not determined.",
   },
   {
     title: "Citations",
-    body: "The model may cite only chunk ids it was given. The server drops any other id and still keeps the sentence. The citation panel shows the document, the section path, the chunk id, and the text.",
+    body: "A citation is kept only when its id was among the retrieved sections. The panel shows the document, the section, and the text.",
   },
 ];
 
 export function ArchitectureTab() {
   return (
-    <div className="stack architecture">
-      <section className="card">
-        <p className="eyebrow">How a run works</p>
-        <h2>Pipeline</h2>
+    <div className="architecture">
+      <div className="about-lead">
         <p>
-          The corpus is small on purpose so each stage can be inspected. Retrieval still selects a subset of the chunks. The same stages are what you would keep if the library grew.
+          The page is React and TypeScript. The API is Python and FastAPI. An investigation embeds a small set of
+          questions, retrieves the closest sections from PostgreSQL with pgvector, and asks Azure OpenAI for a
+          structured report.
         </p>
+        <p>
+          The case file is five Markdown documents shipped with the application: the credit policy, the loan
+          application, the income documents, the risk note, and the correspondence. Each section is embedded and stored
+          with the application.
+        </p>
+        <p>
+          The public site is one Azure Container App. The page, the API, and Postgres run together. Terraform describes
+          those Azure resources. The source is{" "}
+          <a href="https://github.com/alexpberger/abc-rag-case-investigator">
+            github.com/alexpberger/abc-rag-case-investigator
+          </a>
+          .
+        </p>
+      </div>
+      <section className="card">
+        <h2>How a run works</h2>
         <ol className="pipeline">
           {stages.map((stage, index) => (
             <li key={stage.title}>
@@ -51,12 +64,17 @@ export function ArchitectureTab() {
         </ol>
       </section>
       <section className="card boundary">
-        <h2>V1 boundary</h2>
+        <h2>This version</h2>
+        <p>One public demonstration of a single fictional case. No sign-in and no document upload.</p>
         <p>
-          One public site, with no sign-in. Investigations stop at 100 per UTC day and follow-up questions at 300, with
-          a tighter hourly cap per network. No document upload. No lending decision. Azure OpenAI is the only model
-          provider. PDF ingestion, hybrid search, and agentic workflows are later work.
+          The investigation organises what the file supports and what is still missing. It does not approve or decline
+          the loan.
         </p>
+        <p>
+          Public use is limited to 100 investigations and 300 follow-up questions per day, with a tighter hourly limit,
+          so the demonstration stays available.
+        </p>
+        <p>Accounts, further cases, other document formats, and other model providers sit outside this version.</p>
       </section>
     </div>
   );

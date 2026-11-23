@@ -625,6 +625,21 @@ summary {
   box-shadow: inset 2px 0 0 var(--accent);
 }
 
+.boundary p + p {
+  margin-top: 0.9rem;
+}
+
+.architecture {
+  display: flex;
+  flex-direction: column;
+  gap: 2.75rem;
+  max-width: 64rem;
+}
+
+.about-lead a {
+  color: var(--ink);
+}
+
 .about {
   display: flex;
   flex-direction: column;

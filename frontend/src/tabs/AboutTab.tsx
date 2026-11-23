@@ -12,7 +12,7 @@ const perspectives = [
   {
     tab: "Architecture",
     perspective: "Technical perspective",
-    body: "Understand the RAG pipeline, its individual stages and underlying technologies.",
+    body: "See how the application is assembled, how an investigation run works, and what this version includes.",
   },
 ];
 
