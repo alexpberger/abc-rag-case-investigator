@@ -30,8 +30,15 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    document.title = `${current[1]} — Case investigator`;
-  }, [current]);
+    const applyTitle = () => {
+      const hash = window.location.hash.replace("#", "");
+      const section = tabs.find(([id]) => id === hash);
+      document.title = section ? `Demo - ${section[1]}` : "Demo";
+    };
+    applyTitle();
+    window.addEventListener("hashchange", applyTitle);
+    return () => window.removeEventListener("hashchange", applyTitle);
+  }, []);
 
   function selectTab(next: TabId) {
     window.location.hash = next;
